@@ -3,4 +3,4 @@
 ['remote "storage"']
     url = gdrive://1DV--B09w7eLN4hOWAzdspo_kpBpgT05D?dmr=1&ec=wgc-drive-hero-goto
     gdrive_use_service_account = true
-    gdrive_service_account_json_file_path = /Users/nicole.r.frank/Breast-Cancer-Classification---SE489/data/breast-cancer-storage-af88cc2e0aab.json
+    gdrive_service_account_json_file_path = /Users/nicole.r.frank/breast-cancer-storage-af88cc2e0aab.json
