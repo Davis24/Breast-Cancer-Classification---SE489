@@ -5,7 +5,6 @@ import pickle
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
-
 from pathlib import Path
 
 from loguru import logger
@@ -95,19 +94,27 @@ def load_lr_model(filepath: str):
 @app.command()
 def main(
     # ---- REPLACE DEFAULT PATHS AS APPROPRIATE ----
-    #processed_data_path: Path = PROCESSED_DATA_DIR / "dataset.csv",
+    processed_data_path: Path = PROCESSED_DATA_DIR / "dataset.csv",
     labels_path: Path = PROCESSED_DATA_DIR / "labels.csv",
     features_path: Path = PROCESSED_DATA_DIR / "features.csv",
     model_path: Path = MODELS_DIR / "model.pkl",
-    predictions_path: Path = PROCESSED_DATA_DIR / "test_predictions.csv",
+    #predictions_path: Path = PROCESSED_DATA_DIR / "test_predictions.csv",
     # -----------------------------------------
 ):
     # ---- REPLACE THIS WITH YOUR OWN CODE ----
     logger.info("Performing inference for model...")
     lr_model= load_lr_model(model_path)
-    X_test = pd.read_csv(labels_path)
-    Y_test = pd.read_csv(predictions_path)
-    
+    X_test = pd.read_csv(features_path)
+    y_test = pd.read_csv(labels_path)
+
+    print(f"X_test Shape{X_test.shape}")
+    print(f"y_test Shape{y_test.shape}")
+
+    data = pd.read_csv(processed_data_path)
+    X = data.drop(['diagnosis', 'id'], axis=1)
+
+    evaluate_lr_model(lr_model, X_test, y_test)
+    generate_feature_importance(lr_model, X)
 
     logger.success("Inference complete.")
     # -----------------------------------------
