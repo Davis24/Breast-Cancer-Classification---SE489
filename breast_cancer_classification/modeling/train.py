@@ -6,9 +6,9 @@ import typer
 import pandas as pd
 import pickle
 
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler #type: ignore
+from sklearn.model_selection import train_test_split #type: ignore
+from sklearn.linear_model import LogisticRegression #type: ignore
 from breast_cancer_classification.config import MODELS_DIR, PROCESSED_DATA_DIR
 from breast_cancer_classification.dataset import load_data
 
@@ -85,7 +85,7 @@ def fit_lr_model(lr_model: LogisticRegression, X_train, y_train):
     
     lr_model.fit(X_train, y_train)
 
-def save_trained_model(lr_model:LogisticRegression, file_path: str):
+def save_trained_model(lr_model:LogisticRegression, file_path: Path):
     """Save the trained model to the /models directory.
 
     Args:

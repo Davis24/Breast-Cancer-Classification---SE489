@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 import pickle
 
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.linear_model import LogisticRegression #type: ignore
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report #type: ignore
 
 from pathlib import Path
 
@@ -73,7 +73,7 @@ def generate_feature_importance(lr_model:LogisticRegression, original_df: pd.Dat
 
     return feature_importance
 
-def load_lr_model(filepath: str):
+def load_lr_model(filepath: Path):
     """Load an already existing model from a pickle file.
 
     Args:
