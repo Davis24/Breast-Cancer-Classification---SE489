@@ -101,3 +101,30 @@ By adhering to the best practices in an MLOps production lifecycle we will devel
 - **6.2 Code Documentation**
   - Docstrings, inline comments, code style (ruff), type checking (mypy), Makefile docs LINKS COMING SOON!
 
+## 7. Phase1 Reflections
+
+Findings:
+
+The model we decided to use was a logistic regression model. We felt that this model had a strong performance without overfitting the data. Using a train/test split of 0.2 we achieved accuracy .94 on the out of sample data. We had a precision of .94 and a recall of 0.97 for predicting benign and 0.94 precision and 0.87 recall for predicting malignant. We used a 30 factor model with our 5 strongest factors being radius_mean, concavity_worst, texture_se, symmetry_worst, and radius_worst.
+
+For version controlling we used git. We found that using pull requests was the best way to direct our team members to what aspects of the project they should be working on. We also established a system of enabling two, non-author team members to review the code, but only requiring one of them to sign off on the pull request for merging. We achieved our pull requests by creating our own branches and merging them into main via rebasing. This allowed us to maintain a linear history of commits. This was feasible as our pull requests were on independent features of the project and thus we would not encounter any conflicts during the merge process.
+
+For our research process we created jupyter notebooks to easily perform visualizations and quickly produce model results. Ultimately, to make our code better fit into an mlops environment we had to transform our jupyter notebooks into separate .py files for each process of the model which would allow us to produce doc strings, makefiles, and allow for a user to test the separate functions within our code.
+
+Challenges Encountered:
+
+The first challenge we encountered was selecting a proper dataset. Our criteria for a dataset was one that seemed to have been used frequently to validate it as a strong dataset. Additionally, we wanted a dataset that was mostly ready to use and did not require a lot of preprocessing given that our evaluation is more focused on the mlops pipeline surrounding the model. Thus, we did not want to spend extra effort in getting the data ready for modelling. Ultimately, we settled on the breast cancer dataset because it had been used many times on Kaggle, had sufficient data, and was already very clean to use dataset.
+
+The second challenge we encountered was deciding which model among our SVM, KNN, and Logistic regression model we should choose. We decided on the logistic regression model because it seemed to be easily interpretable and had the most reasonable performance. It also seemed conducive to other future parts of the mlops pipeline that we will be using later in the project.
+
+The other challenge we had was getting our entire team up to speed on how to use git and dvc properly. Regarding git, the various members of our team had different levels of
+
+experience with it. Megan being the most experienced took the lead in setting up the repository. She also patiently guided the rest of the team members through the git repository, commands, pull requests, and merging. This allowed all the team members to use git effectively and merge the branches that contained each of our ML models into main.
+
+Nikki faced an issue regarding setting up DVC on her google drive repository. Google drive has adopted new authentication protocols that were preventing the group from properly being able to use DVC. Nikki was able to work around this authentication issue by creating a service account that allowed our group to push and pull to that repo. She utilized DVC commands to workaround the authentication issue via using the service account’s key. Megan also provided a link to a DVC tutorial to help get the team familiar with DVC commands.
+
+Areas For Improvement:
+
+We seem to be more successful at predicting benign than malignant. This could be an issue given that we would want to more predictive of the cancer than not. Thus, we could possibly change our thresholds, change our sampling ratio, or our threshold for predicting cancer to target more effectively predicting cancer in the out of sample data set.
+
+Another area for improvement is that we settled on one model when we could have created a function that allowed for multiple models to be considered. We could have used all three of our models and created a function that takes the model type as a parameter and a dictionary of hyperparameters as another parameter. Thus, we could have a more dynamic prediction environment and allow for greater iteration over hyperparameters. This would give us a wider breadth for using hydra and logging the differences between each model and its associated hyperparameters.
