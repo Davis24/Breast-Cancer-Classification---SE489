@@ -105,11 +105,9 @@ def main(
     # ---- REPLACE THIS WITH YOUR OWN CODE ----
     logger.info("Performing inference for model...")
     lr_model= load_lr_model(model_path)
-    dataset_test = pd.read_csv(dataset_test_path)
+    X_test = pd.read_csv(labels_path)
+    Y_test = pd.read_csv(predictions_path)
     
-    evaluate_lr_model(lr_model, dataset_test[])
-
-
 
     logger.success("Inference complete.")
     # -----------------------------------------

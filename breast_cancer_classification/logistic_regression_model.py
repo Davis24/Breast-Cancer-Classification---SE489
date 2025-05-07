@@ -12,7 +12,7 @@ def load_data(data_filepath: str, debug: bool = False) -> pd.DataFrame:
     """Loads the .csv file into a dataframe.
 
     Args:
-        data_filepath: The file path for the csv.
+        data_filepath: The csv file path.
         debug: The option to turn on printing for dataframe information.
 
     Returns:
