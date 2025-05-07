@@ -1,11 +1,11 @@
 from pathlib import Path
 
 from loguru import logger
-from tqdm import tqdm
 import typer
 
 import pandas as pd
 import pickle
+
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
@@ -102,15 +102,17 @@ def save_trained_model(lr_model:LogisticRegression, file_path: str):
 
 @app.command()
 def main(
-    # ---- REPLACE DEFAULT PATHS AS APPROPRIATE ----
+    # ---- File paths ----
     processed_data_path: Path = PROCESSED_DATA_DIR / "dataset.csv",
     labels_path: Path = PROCESSED_DATA_DIR / "labels.csv",
     features_path: Path = PROCESSED_DATA_DIR / "features.csv",
     model_path: Path = MODELS_DIR / "model.pkl",
-    # -----------------------------------------
+    
 ):
-    logger.info("Training some model...")
+    logger.info(f"Loading data from: {processed_data_path}")
     data = load_data(processed_data_path)
+
+    logger.info("Creating & Training logistic regression (LR) model...")
     X_train, X_test, y_train, y_test = create_test_train_split(data)
     #this never gets used? ->> should go into LR Model
     X_train_scaled, X_test_scaled = scale_data(X_train, X_test)
@@ -119,10 +121,11 @@ def main(
 
     #Save the Test_Data for testing in the predict section
     #test_data = pd.concat([X_test, y_test], axis=1)
+    logger.info(f"Saving labels and features for LF model: {labels_path}, {features_path}")
     y_test.to_csv(labels_path, index=False)
     X_test.to_csv(features_path, index=False)
     
-
+    logger.info(f"Saving LR model: {model_path}")
     save_trained_model(lr_model, model_path)
     logger.success("Modeling training complete.")
     # -----------------------------------------

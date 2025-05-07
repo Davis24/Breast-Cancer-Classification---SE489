@@ -8,7 +8,6 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 from pathlib import Path
 
 from loguru import logger
-from tqdm import tqdm
 import typer
 
 from breast_cancer_classification.config import MODELS_DIR, PROCESSED_DATA_DIR
@@ -101,14 +100,11 @@ def main(
     #predictions_path: Path = PROCESSED_DATA_DIR / "test_predictions.csv",
     # -----------------------------------------
 ):
-    # ---- REPLACE THIS WITH YOUR OWN CODE ----
+    
     logger.info("Performing inference for model...")
     lr_model= load_lr_model(model_path)
     X_test = pd.read_csv(features_path)
     y_test = pd.read_csv(labels_path)
-
-    print(f"X_test Shape{X_test.shape}")
-    print(f"y_test Shape{y_test.shape}")
 
     data = pd.read_csv(processed_data_path)
     X = data.drop(['diagnosis', 'id'], axis=1)
@@ -117,7 +113,7 @@ def main(
     generate_feature_importance(lr_model, X)
 
     logger.success("Inference complete.")
-    # -----------------------------------------
+    
 
 
 if __name__ == "__main__":

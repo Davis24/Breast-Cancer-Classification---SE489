@@ -1,5 +1,7 @@
 from pathlib import Path
 import pandas as pd
+
+from loguru import logger
 import typer
 
 from breast_cancer_classification.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
@@ -51,9 +53,11 @@ def main(
     output_path: Path = PROCESSED_DATA_DIR / "dataset.csv",
     # ----------------------------------------------
 ):
+    logger.info(f"Loading data from: {input_path}")
     data = load_data(input_path)
     preprocess_data(data)
     data.to_csv(output_path, index=False)
+    logger.success(f"Finished preprocessing the data, output: {output_path}")
 
 
 if __name__ == "__main__":
