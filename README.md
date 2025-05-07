@@ -72,18 +72,18 @@
 
 
 ## 4. Phase Deliverables
-- [ ] [PHASE1.md](./PHASE1.md): Project Design & Model Development
-- [ ] [PHASE2.md](comming in future release): Enhancing ML Operations
-- [ ] [PHASE3.md](coming in future release): Continuous ML & Deployment
+- [PHASE1.md](./PHASE1.md): Project Design & Model Development
+- [PHASE2.md](comming in future release): Enhancing ML Operations
+- [PHASE3.md](coming in future release): Continuous ML & Deployment
 
 ## 5. Setup Instructions
-- [ ] How to set up the environment (conda/pip, requirements.txt, Docker, etc.): COMING SOON
-- [ ] How to run the code and reproduce results: COMING SOON
+- How to set up the environment (conda/pip, requirements.txt, Docker, etc.): COMING SOON
+- How to run the code and reproduce results: COMING SOON
 
 ## 6. Contribution Summary
-- Megan set up the repository and created the wiki page. She took the lead on addressing questions pertaining to git and version control, coded the KNN classifier, Contributed to overall documentation.
-- Nikki created the dvc pipeline and produced the logistic regression model that was ultimately used for this project. Contributed to overall documentation
-- Abe contributed in writing the report, and readme. Additionally, Abe brought questions to the professor and esnured the team and project were steering in the right direction.
+- Megan set up the repository and created the wiki page. She took the lead on addressing questions pertaining to git and version control, coded the KNN classifier, contributed to overall documentation, and parsed selected exploratory methods into different callable functions.
+- Nikki created the dvc pipeline, explored the data and logistic regression performance, and produced the logistic regression model that we ultimately chose to move forward with for this project, and she contributed to overall documentation.
+- Abe contributed in writing the report, and readme. Additionally, Abe brought questions to the professor and esnured the team and project were steering in the right direction. Finally, Abe did some exploratory work considering the viability of the SVM model for this project.
 
 ## 7. References
 - Third Party Tools Used Scikit learn, Pandas, Numpy, Seaborn, Cookiecutter-data-science 

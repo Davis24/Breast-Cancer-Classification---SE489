@@ -48,41 +48,56 @@ By adhering to the best practices in an MLOps production lifecycle we will devel
     - matplotlib - used to create custom plots
 
 ## 2. Code Organization & Setup
-- [ ] **2.1 Repository Setup**
-  - [ ] GitHub repo created
-  - [ ] Cookiecutter or similar structure used
-- [ ] **2.2 Environment Setup**
-  - [ ] Python virtual environment
-  - [ ] requirements.txt or environment.yml
-  - [ ] (Optional) Google Colab setup
+- **2.1 Repository Setup**
+  - Github Repository Link: https://github.com/Davis24/Breast-Cancer-Classification---SE489 
+  - Cookiecutter-Data-Science Template Used: https://cookiecutter-data-science.drivendata.org/ 
+- **2.2 Environment Setup**
+  - Each Member used a Python Virtual Environment. 
+  - The requirements.txt can be found in: https://github.com/Davis24/Breast-Cancer-Classification---SE489/blob/main/requirements.txt 
 
 ## 3. Version Control & Collaboration
-- [ ] **3.1 Git Usage**
-  - [ ] Regular commits with clear messages
-  - [ ] Branching and pull requests
-- [ ] **3.2 Team Collaboration**
-  - [ ] Roles assigned
-  - [ ] Code reviews and merge conflict resolution
+- **3.1 Git Usage**
+  - We used regular commits with clear messages as can be seen on our main branch here https://github.com/Davis24/Breast-Cancer-Classification---SE489/commits/main/
+  - We used branching and then adhered to a pull request template Template: https://github.com/Davis24/Breast-Cancer-Classification---SE489/wiki/Pull-Request-Template
+- **3.2 Team Collaboration**
+  - Roles on our team are not fixed, they are fluid as we each adapt to project needs. Generally speaking the following is a description of our roles: 
+    - Megan Davis:
+      - Setup the github project, github wiki, and standards for using github. 
+      - Worked on project documentaton
+      - Created the KNN Classification for testing purposes.
+      - Organized code into callable functions 
+      - Reviewed and approved pull requests
+    - Nikki Frank: 
+      - Created a logistic regression model in order to verify it's performance on our dataset
+      - Worked on project documentation
+      - Established our preliminary dvc pipeline
+      - Reviewed and approved pull requests
+    - Abe Berkley-Vigil
+      - Met with the professor many times to ensure our group is on the right path
+      - Explored to possibility of using an SVM model for our dataset
+      - Worked on project documentation
+      - Reviewed and approved pull requests
+
+  - Code reviews and merge conflict resolution: The team performed robust Code Reviews and Merge Conflict resolutions. Each PR requires certain criteria to be followed and approved by the two other team members. 
 
 ## 4. Data Handling
-- [ ] **4.1 Data Preparation**
-  - [ ] Cleaning, normalization, augmentation scripts
-- [ ] **4.2 Data Documentation**
-  - [ ] Description of data prep process
+- **4.1 Data Preparation**
+  - Scripts COMING SOON!
+- **4.2 Data Documentation**
+  - Data preparation was minimal, as the dataset was verified to have been already standardized. The target was extracted and converted to 1s and 0s instead of Bs and Ms. The ID feature was removed from the dataset as it had no bearing on a sample's diagnosis.
 
 ## 5. Model Training
-- [ ] **5.1 Training Infrastructure**
-  - [ ] Training environment setup (e.g., Colab, GPU)
-- [ ] **5.2 Initial Training & Evaluation**
-  - [ ] Baseline model results
-  - [ ] Evaluation metrics
+- **5.1 Training Infrastructure**
+  - Training environment setup: In this phase of the project we were still running code on our local machines without a container. The model was first run on an Apple M1 Pro CPU in a python virtual environment managed by conda.
+- **5.2 Initial Training & Evaluation**
+  - Baseline model results: 
+    - Accuracy = 94%
+    - Confusion Matrix:  [[73   2] [ 5 34]] demonstrating that they model generates 5 false negatives and 2 false positives on the test data. The 5 false negatives are concerning and we may want to re-examine the model in the future to reduce them. False negatives are very harmful in the case of cancer detection.
+  - Evaluation metrics: Accruacy and Confusion Matrix
 
 ## 6. Documentation & Reporting
-- [ ] **6.1 Project README**
-  - [ ] Overview, setup, replication steps, dependencies, team contributions
-- [ ] **6.2 Code Documentation**
-  - [ ] Docstrings, inline comments, code style (ruff), type checking (mypy), Makefile docs
+- **6.1 Project README**
+  - [README.md](./README.md)
+- **6.2 Code Documentation**
+  - Docstrings, inline comments, code style (ruff), type checking (mypy), Makefile docs LINKS COMING SOON!
 
----
-
-> **Checklist:** Use this as a guide. Not all items are required, but thorough documentation and reproducibility are expected.
