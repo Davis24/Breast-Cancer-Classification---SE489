@@ -82,7 +82,7 @@ By adhering to the best practices in an MLOps production lifecycle we will devel
 
 ## 4. Data Handling
 - **4.1 Data Preparation**
-  - Scripts COMING SOON!
+  - Script in dataset.py
 - **4.2 Data Documentation**
   - Data preparation was minimal, as the dataset was verified to have been already standardized. The target was extracted and converted to 1s and 0s instead of Bs and Ms. The ID feature was removed from the dataset as it had no bearing on a sample's diagnosis.
 
@@ -99,7 +99,7 @@ By adhering to the best practices in an MLOps production lifecycle we will devel
 - **6.1 Project README**
   - [README.md](./README.md)
 - **6.2 Code Documentation**
-  - Docstrings, inline comments, code style (ruff), type checking (mypy), Makefile docs LINKS COMING SOON!
+  - We have completed Docstrings, inline comments, code style (ruff), and type checking (mypy). Check out code for examples.
 
 ## 7. Phase1 Reflections
 
