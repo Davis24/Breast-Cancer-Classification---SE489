@@ -63,20 +63,20 @@ By adhering to the best practices in an MLOps production lifecycle we will devel
   - Roles on our team are not fixed, they are fluid as we each adapt to project needs. Generally speaking the following is a description of our roles: 
     - Megan Davis:
       - Setup the github project, github wiki, and standards for using github. 
-      - Worked on project documentaton
-      - Created the KNN Classification for testing purposes.
-      - Organized code into callable functions 
-      - Reviewed and approved pull requests
+      - Work on project documentaton
+      - Create the KNN Classification for testing purposes.
+      - Organize code into callable functions 
+      - Review and approved pull requests
     - Nikki Frank: 
-      - Created a logistic regression model in order to verify it's performance on our dataset
-      - Worked on project documentation
-      - Established our preliminary dvc pipeline
-      - Reviewed and approved pull requests
+      - Create a logistic regression model in order to verify it's performance on our dataset
+      - Work on project documentation
+      - Establish our preliminary dvc pipeline
+      - Review and approved pull requests
     - Abe Berkley-Vigil
-      - Met with the professor many times to ensure our group is on the right path
-      - Explored to possibility of using an SVM model for our dataset
-      - Worked on project documentation
-      - Reviewed and approved pull requests
+      - Meet with the professor many times to ensure our group is on the right path
+      - Explore the possibility of using an SVM model for our dataset
+      - Work on project documentation
+      - Review and approved pull requests
 
   - Code reviews and merge conflict resolution: The team performed robust Code Reviews and Merge Conflict resolutions. Each PR requires certain criteria to be followed and approved by the two other team members. 
 
