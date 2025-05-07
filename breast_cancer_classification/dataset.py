@@ -1,10 +1,11 @@
 from pathlib import Path
-import pandas as pd
 
 from loguru import logger
+import pandas as pd
 import typer
 
 from breast_cancer_classification.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
+
 
 def load_data(data_filepath: Path, debug: bool = False) -> pd.DataFrame:
     """Loads the .csv file into a dataframe.

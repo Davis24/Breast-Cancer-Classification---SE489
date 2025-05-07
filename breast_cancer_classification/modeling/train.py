@@ -1,14 +1,13 @@
 from pathlib import Path
-
-from loguru import logger
-import typer
-
-import pandas as pd
 import pickle
 
-from sklearn.preprocessing import StandardScaler #type: ignore
-from sklearn.model_selection import train_test_split #type: ignore
-from sklearn.linear_model import LogisticRegression #type: ignore
+from loguru import logger
+import pandas as pd
+from sklearn.linear_model import LogisticRegression  #type: ignore
+from sklearn.model_selection import train_test_split  #type: ignore
+from sklearn.preprocessing import StandardScaler  #type: ignore
+import typer
+
 from breast_cancer_classification.config import MODELS_DIR, PROCESSED_DATA_DIR
 from breast_cancer_classification.dataset import load_data
 

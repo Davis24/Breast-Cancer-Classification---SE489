@@ -1,13 +1,11 @@
-import numpy as np
-import pandas as pd
+from pathlib import Path
 import pickle
 
-from sklearn.linear_model import LogisticRegression #type: ignore
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report #type: ignore
-
-from pathlib import Path
-
 from loguru import logger
+import numpy as np
+import pandas as pd
+from sklearn.linear_model import LogisticRegression  #type: ignore
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix  #type: ignore
 import typer
 
 from breast_cancer_classification.config import MODELS_DIR, PROCESSED_DATA_DIR
