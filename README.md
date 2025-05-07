@@ -1,4 +1,37 @@
-# breast-cancer-classification
+# Breast Cancer Classification
+
+## 1. Team Information
+- [ ] Team Name: Team Python
+- [ ] Team Members: (Megan Davis, MDAVI166@depaul.edu), (Nikki Frank, NFRANK6@depaul.edu), (Abe Berkley-Vigil, ABERKLEY@depaul.edu)
+- [ ] Course & Section: SE 489 Section 930, 910
+
+## 2. Project Overview
+- [ ] Summary: Radiologists study for years to be able to accurately identify whether cancer is present in the images they gather, but they can still make errors. To improve their accuracy, we need to deploy a sustainable and reproducible machine learning model that can detect cancer in breast screenings and continuously improve its predictions as it’s presented with new data. This tool must generate the same predictions on various machines.
+- [ ] Problem statement and motivation
+- [ ] Main objectives
+
+## 3. Project Architecture Diagram
+- [ ] Insert or link to your architecture diagram (e.g., draw.io, PNG, etc.)
+
+## 4. Phase Deliverables
+- [ ] [PHASE1.md](./PHASE1.md): Project Design & Model Development
+- [ ] [PHASE2.md](./PHASE2.md): Enhancing ML Operations
+- [ ] [PHASE3.md](./PHASE3.md): Continuous ML & Deployment
+
+## 5. Setup Instructions
+- [ ] How to set up the environment (conda/pip, requirements.txt, Docker, etc.)
+- [ ] How to run the code and reproduce results
+
+## 6. Contribution Summary
+- [ ] Briefly describe each team member's contributions
+
+## 7. References
+- [ ] List of datasets, frameworks, and major third-party tools used
+
+---
+
+> **Tip:** Keep this README updated as your project evolves. Link to each phase deliverable and update the architecture diagram as your pipeline matures.
+
 
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
