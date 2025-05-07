@@ -6,7 +6,7 @@ import typer
 
 from breast_cancer_classification.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
 
-def load_data(data_filepath: str, debug: bool = False) -> pd.DataFrame:
+def load_data(data_filepath: Path, debug: bool = False) -> pd.DataFrame:
     """Loads the .csv file into a dataframe.
 
     Args:
@@ -25,7 +25,7 @@ def load_data(data_filepath: str, debug: bool = False) -> pd.DataFrame:
         print("Data Head")
         print(data.head())  # Display the first few rows of the dataset
         print("Data Info")
-        print(data.info())  # Display information about the dataset
+        data.info()  # Display information about the dataset
 
     return data
 
