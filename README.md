@@ -1,12 +1,22 @@
-# breast-cancer-classification
+# Breast Cancer Classification
 
+## 1. Team Information
+- Team Name: Team Python
+- Team Members: (Megan Davis, MDAVI166@depaul.edu), (Nikki Frank, NFRANK6@depaul.edu), (Abe Berkley-Vigil, ABERKLEY@depaul.edu)
+- Course & Section: SE 489 Section 930, 910
+
+## 2. Project Overview
+- Summary: Radiologists study for years to be able to accurately identify whether cancer is present in the images they gather, but they can still make errors. To improve their accuracy, we need to deploy a sustainable and reproducible machine learning model that can detect cancer in breast screenings and continuously improve its predictions as it’s presented with new data. This tool must generate the same predictions on various machines.
+- Problem statement: Build a successful supervised binary classification model for detecting breast cancer. This will allow doctors to have a “second set of eyes” when identifying patients with breast cancer.
+- Main objectives: Leverage 3rd party ML tools, version controlling, templates and docker containers to allow for continuous development and integration of a machine learning model to be used seamlessly by anyone given access to it.
+
+## 3a. Project Architecture Diagram
+- COMING SOON!
+
+## 3b. Project Organization Diagram
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
 </a>
-
-SE 489 project - breast cancer classification.
-
-## Project Organization
 
 ```
 ├── LICENSE            <- Open-source license if one is chosen
@@ -58,4 +68,27 @@ SE 489 project - breast cancer classification.
 ```
 
 --------
+
+
+
+## 4. Phase Deliverables
+- [PHASE1.md](./PHASE1.md): Project Design & Model Development
+- [PHASE2.md](comming in future release): Enhancing ML Operations
+- [PHASE3.md](coming in future release): Continuous ML & Deployment
+
+## 5. Setup Instructions
+- How to set up the environment (conda/pip, requirements.txt, Docker, etc.): COMING SOON
+- How to run the code and reproduce results: COMING SOON
+
+## 6. Contribution Summary
+- Megan set up the repository and created the wiki page. She took the lead on addressing questions pertaining to git and version control, coded the KNN classifier, contributed to overall documentation, and parsed selected exploratory methods into different callable functions.
+- Nikki created the dvc pipeline, explored the data and logistic regression performance, and produced the logistic regression model that we ultimately chose to move forward with for this project, and she contributed to overall documentation.
+- Abe contributed in writing the report, and readme. Additionally, Abe brought questions to the professor and esnured the team and project were steering in the right direction. Finally, Abe did some exploratory work considering the viability of the SVM model for this project.
+
+## 7. References
+- Third Party Tools Used Scikit learn, Pandas, Numpy, Seaborn, Cookiecutter-data-science 
+- Breast Cancer Data Set: https://www.kaggle.com/datasets/yasserh/breast-cancer-dataset/data
+- Frameworks: Scikit-learn, DVC, Hydra
+
+---
 
