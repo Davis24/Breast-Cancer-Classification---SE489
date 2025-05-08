@@ -16,13 +16,13 @@ def load_data(data_filepath: Path, debug: bool = False) -> pd.DataFrame:
 
     Returns:
         The new dataframe.
-    
+
     """
-    
+
     data = pd.read_csv(data_filepath)
 
     # Verify the data is loaded correctly
-    if(debug):
+    if debug:
         print("Data Head")
         print(data.head())  # Display the first few rows of the dataset
         print("Data Info")
@@ -30,22 +30,25 @@ def load_data(data_filepath: Path, debug: bool = False) -> pd.DataFrame:
 
     return data
 
-#Pass by Object Reference >> Dataframes are fine to pass and not return
+
+# Pass by Object Reference >> Dataframes are fine to pass and not return
 def preprocess_data(data: pd.DataFrame):
     """Preprocess the data in the dataframe.
 
     Args:
         data: The dataframe containing the data.
-        
+
     Returns:
         None.
-    
+
     """
     # Convert 'diagnosis' column to numeric (e.g., 'B' -> 0, 'M' -> 1)
-    data['diagnosis'] = data['diagnosis'].map({'B': 0, 'M': 1})
+    data["diagnosis"] = data["diagnosis"].map({"B": 0, "M": 1})
 
-#Typer used to allow us to test methods specifically if we direct call it
+
+# Typer used to allow us to test methods specifically if we direct call it
 app = typer.Typer()
+
 
 @app.command()
 def main(
