@@ -18,8 +18,6 @@ requirements:
 	$(PYTHON_INTERPRETER) -m pip install -r requirements.txt
 	
 
-
-
 ## Delete all compiled Python files
 .PHONY: clean
 clean:
@@ -41,10 +39,11 @@ format:
 
 
 
+## Currently tests are not implemented
 ## Run tests
-.PHONY: test
-test:
-	python -m unittest discover -s tests
+#.PHONY: test # By default, Makefile targets are "file targets" - they are used to build files from other files. Make assumes its target is a file, and this makes writing Makefiles relatively easy:
+#test:
+#	#python -m unittest discover -s tests
 
 
 ## Set up Python interpreter environment
@@ -56,6 +55,8 @@ create_environment:
 	@echo ">>> conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
 	
 
+run_app:
+	python run.py
 
 
 #################################################################################
