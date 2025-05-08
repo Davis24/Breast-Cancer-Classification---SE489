@@ -10,11 +10,11 @@
     - Reproducibility and Repeatability: The model must be able to reproduce the same classification from the same inputs on different machines, in addition, it must be able to repeat the same classification on one machine. 
 
   - Project Description: In SE489, we’ve been exploring a variety of productionalization techniques for the data science modeling life cycle. In this project, we seek to employ those techniques in order to address this project’s problem statement. According to the American Cancer Society, "breast cancer is the most common cancer in women in the United States, except for skin cancers. It accounts for about 30% (or 1 in 3) of all new female cancers each year.” We are going to deploy a model that can assist radiologists in their determination of whether breast cancer is present in breast cancer screening images.  
-  
+    \
     A dataset that can reliably provide the base for such a model is key. We will use the data set found here, https://www.kaggle.com/datasets/yasserh/breast-cancer-dataset/data. It contains 569 samples, 30 features, and 1 target. The target determines whether a sample is malignant or benign. The features describe the tumor or growth that was imaged. None of the raw image data is present in this dataset, instead, the important features of the original images have been recorded in a sample feature data. Features include things like “compactness”, “concavity”, “radius”, etc. This dataset is almost perfect, we would like to have more samples, but we are content to use what we have.   
-    
+    \
     In order to create an optimal model for our deployment, we intend to test and train scikit learn’s pre-built models like KNN, SVM, and logistic regression. We will run experiments cross-referencing each model’s performance on differing hyperparameters and evaluate them by measuring their accuracy and loss. We can ensure we are not overfitting any models by watching the loss. The model we use will be the best performer without overfitting.  
-    
+    \
     As a team, after all phased releases are completed, we will ensure that our model deployment is reproducible and sustainable (retrainable) by adhering to the following:   
       - Carefully maintaining the package requirements of the environment, via a package manager like conda. 
       - Organizing the project’s repository in a way that adheres to machine learning deployment best practices with the use of a cookiecutter template(s).   
@@ -46,6 +46,8 @@ By adhering to the best practices in an MLOps production lifecycle we will devel
     - Pandas and Numpy - both used for data manipulations and preprocessing
     - Seaborn - used for visualizations that will help us better understand our patterns in our dataset
     - matplotlib - used to create custom plots
+    - loguru - used for enchanced logging options.
+    - typer - used for CLI interface option.
 
 ## 2. Code Organization & Setup
 - **2.1 Repository Setup**
@@ -117,11 +119,11 @@ The first challenge we encountered was selecting a proper dataset. Our criteria 
 
 The second challenge we encountered was deciding which model among our SVM, KNN, and Logistic regression model we should choose. We decided on the logistic regression model because it seemed to be easily interpretable and had the most reasonable performance. It also seemed conducive to other future parts of the mlops pipeline that we will be using later in the project.
 
-The other challenge we had was getting our entire team up to speed on how to use git and dvc properly. Regarding git, the various members of our team had different levels of
-
-experience with it. Megan being the most experienced took the lead in setting up the repository. She also patiently guided the rest of the team members through the git repository, commands, pull requests, and merging. This allowed all the team members to use git effectively and merge the branches that contained each of our ML models into main.
+The other challenge we had was getting our entire team up to speed on how to use git and dvc properly. Regarding git, the various members of our team had different levels of experience with it. Megan being the most experienced took the lead in setting up the repository. She also patiently guided the rest of the team members through the git repository, commands, pull requests, and merging. This allowed all the team members to use git effectively and merge the branches that contained each of our ML models into main.
 
 Nikki faced an issue regarding setting up DVC on her google drive repository. Google drive has adopted new authentication protocols that were preventing the group from properly being able to use DVC. Nikki was able to work around this authentication issue by creating a service account that allowed our group to push and pull to that repo. She utilized DVC commands to workaround the authentication issue via using the service account’s key. Megan also provided a link to a DVC tutorial to help get the team familiar with DVC commands.
+
+Lastly, Megan leanred that for mypy SciKit does not have stubs so cannot be easily type checked. In order to run mypy without error Megan added #ignore to the imports. Also, Megan experienced a learning curve with successfuly getting the makefile setup, having never built one previously and needing to set it up on windows. 
 
 Areas For Improvement:
 
