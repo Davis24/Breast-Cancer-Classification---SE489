@@ -11,7 +11,7 @@
 - Main objectives: Leverage 3rd party ML tools, version controlling, templates and docker containers to allow for continuous development and integration of a machine learning model to be used seamlessly by anyone given access to it.
 
 ## 3a. Project Architecture Diagram
-- COMING SOON!
+<img src="./docs/Architecture_Diagram.png" width="600">
 
 ## 3b. Project Organization Diagram
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
@@ -20,7 +20,7 @@
 
 ```
 ├── LICENSE            <- Open-source license if one is chosen
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
+├── Makefile           <- Makefile with convenience commands like `make process_data` or `make train_model`
 ├── README.md          <- The top-level README for developers using this project.
 ├── data
 │   ├── external       <- Data from third party sources.
@@ -28,7 +28,7 @@
 │   ├── processed      <- The final, canonical data sets for modeling.
 │   └── raw            <- The original, immutable data dump.
 │
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
+├── docs               <- Default location for supporting documation documents.
 │
 ├── models             <- Trained and serialized models, model predictions, or model summaries
 │
@@ -37,7 +37,7 @@
 │                         `1.0-jqp-initial-data-exploration`.
 │
 ├── pyproject.toml     <- Project configuration file with package metadata for 
-│                         beast_cancer_classification and configuration for tools like black
+│                         breast_cancer_classification and configuration for tools like black
 │
 ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
 │
@@ -57,8 +57,6 @@
     │
     ├── dataset.py              <- Scripts to download or generate data
     │
-    ├── features.py             <- Code to create features for modeling
-    │
     ├── modeling                
     │   ├── __init__.py 
     │   ├── predict.py          <- Code to run model inference with trained models          
@@ -76,9 +74,19 @@
 - [PHASE2.md](comming in future release): Enhancing ML Operations
 - [PHASE3.md](coming in future release): Continuous ML & Deployment
 
+
 ## 5. Setup Instructions
-- How to set up the environment (conda/pip, requirements.txt, Docker, etc.): COMING SOON
-- How to run the code and reproduce results: COMING SOON
+Conda was used for building and testing the makefile. Using anything else may require modification of the commands.
+
+- How to set up the environment: 
+    - Environmental setup can be handle by running a set of commands through the makefile. 
+    - `make create_environment`: This command will setup a python interpreter environment. (Conda)
+    - `make requirements`: Will install all Python dependencies.
+- How to run the code and reproduce results: 
+    - `make process_data`: This will run the data processing step of the model pipeline.
+    - `make train_model`: This will run the modeling training step of the model pipeline.
+    - `make test_model` : This will run the test step of the model pipeline.
+    - Lastly if you wish to run all the steps at once `make run_full_model_pipeline.py`.
 
 ## 6. Contribution Summary
 - Megan set up the repository and created the wiki page. She took the lead on addressing questions pertaining to git and version control, coded the KNN classifier, contributed to overall documentation, and parsed selected exploratory methods into different callable functions.
@@ -86,7 +94,7 @@
 - Abe contributed in writing the report, and readme. Additionally, Abe brought questions to the professor and esnured the team and project were steering in the right direction. Finally, Abe did some exploratory work considering the viability of the SVM model for this project.
 
 ## 7. References
-- Third Party Tools Used Scikit learn, Pandas, Numpy, Seaborn, Cookiecutter-data-science 
+- Third Party Tools Used Scikit learn, Pandas, Numpy, Seaborn, Cookiecutter-data-science, loguru, typer  
 - Breast Cancer Data Set: https://www.kaggle.com/datasets/yasserh/breast-cancer-dataset/data
 - Frameworks: Scikit-learn, DVC, Hydra
 

@@ -3,7 +3,7 @@
 #################################################################################
 
 PROJECT_NAME = Breast-Cancer-Classification---SE489
-PYTHON_VERSION = 3.10
+PYTHON_VERSION = 3.11
 PYTHON_INTERPRETER = python
 
 #################################################################################
