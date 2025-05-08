@@ -37,7 +37,10 @@ format:
 	ruff check --fix
 	ruff format
 
-
+# Check types on module
+.PHONY: type_check 
+type_check:
+	mypy .\breast_cancer_classification\
 
 ## Currently tests are not implemented
 ## Run tests
@@ -55,7 +58,16 @@ create_environment:
 	@echo ">>> conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
 	
 
-run_app:
+process_data:
+	python .\breast_cancer_classification\dataset.py
+
+train_model:
+	python .\breast_cancer_classification\modeling\train.py
+
+test_model:
+	python .\breast_cancer_classification\modeling\predict.py
+	
+run_full_model_pipeline:
 	python run.py
 
 

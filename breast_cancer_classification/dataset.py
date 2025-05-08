@@ -1,8 +1,12 @@
+import os.path
 from pathlib import Path
+import sys
 
 from loguru import logger
 import pandas as pd
 import typer
+
+sys.path.append( os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 
 from breast_cancer_classification.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
 

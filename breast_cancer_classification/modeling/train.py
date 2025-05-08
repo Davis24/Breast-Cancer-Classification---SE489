@@ -1,5 +1,7 @@
+import os.path
 from pathlib import Path
 import pickle
+import sys
 
 from loguru import logger
 import pandas as pd
@@ -7,6 +9,9 @@ from sklearn.linear_model import LogisticRegression  # type: ignore
 from sklearn.model_selection import train_test_split  # type: ignore
 from sklearn.preprocessing import StandardScaler  # type: ignore
 import typer
+
+## Required otherwise it will error out in the makefile
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..', '..')) )
 
 from breast_cancer_classification.config import MODELS_DIR, PROCESSED_DATA_DIR
 from breast_cancer_classification.dataset import load_data
