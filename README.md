@@ -71,7 +71,7 @@
 
 ## 4. Phase Deliverables
 - [PHASE1.md](./PHASE1.md): Project Design & Model Development
-- [PHASE2.md](comming in future release): Enhancing ML Operations
+- [PHASE2.md](./PHASE2.md): Enhancing ML Operations
 - [PHASE3.md](coming in future release): Continuous ML & Deployment
 
 
