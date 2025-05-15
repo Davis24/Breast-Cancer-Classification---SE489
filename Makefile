@@ -59,13 +59,13 @@ create_environment:
 	
 
 process_data:
-	python .\breast_cancer_classification\dataset.py
+	python ./breast_cancer_classification/dataset.py
 
 train_model:
-	python .\breast_cancer_classification\modeling\train.py
+	python ./breast_cancer_classification/modeling/train.py
 
 test_model:
-	python .\breast_cancer_classification\modeling\predict.py
+	python ./breast_cancer_classification/modeling/predict.py
 	
 run_full_model_pipeline:
 	python run.py

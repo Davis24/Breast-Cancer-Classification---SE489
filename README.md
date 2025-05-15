@@ -86,7 +86,7 @@ Conda was used for building and testing the makefile. Using anything else may re
     - `make process_data`: This will run the data processing step of the model pipeline.
     - `make train_model`: This will run the modeling training step of the model pipeline.
     - `make test_model` : This will run the test step of the model pipeline.
-    - Lastly if you wish to run all the steps at once `make run_full_model_pipeline.py`.
+    - Lastly if you wish to run all the steps at once `make run_full_model_pipeline`.
 
 ## 6. Contribution Summary
 - Megan set up the repository and created the wiki page. She took the lead on addressing questions pertaining to git and version control, coded the KNN classifier, contributed to overall documentation, and parsed selected exploratory methods into different callable functions.
