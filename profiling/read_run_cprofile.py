@@ -4,8 +4,8 @@ import sys
 
 # Define paths
 base_dir = Path(__file__).resolve().parents[1]
-profile_path = base_dir / "reports" / "profiling" / "dataset.prof"
-output_path = base_dir / "reports" / "profiling" / "dataset_profile.txt"
+profile_path = base_dir / "reports" / "profiling" / "run.prof"
+output_path = base_dir / "reports" / "profiling" / "run_profile.txt"
 
 # Generate and write stats to a text file
 with open(output_path, "w") as f:
