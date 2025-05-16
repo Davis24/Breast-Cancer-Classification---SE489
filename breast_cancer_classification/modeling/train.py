@@ -125,8 +125,6 @@ def main(
 
     logger.info("Creating & Training logistic regression (LR) model...")
     X_train, X_test, y_train, y_test = create_test_train_split(data)
-    # this never gets used? ->> should go into LR Model
-    X_train_scaled, X_test_scaled = scale_data(X_train, X_test)
     lr_model = create_lr_model()
     fit_lr_model(lr_model, X_train, y_train)
 
