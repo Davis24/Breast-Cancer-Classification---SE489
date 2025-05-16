@@ -59,7 +59,7 @@ create_environment:
 	
 
 process_data:
-	python .\breast_cancer_classification\dataset.py
+	python ./breast_cancer_classification/dataset.py
 
 train_model:
 	python .\breast_cancer_classification\modeling\train.py
