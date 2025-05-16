@@ -70,6 +70,44 @@ test_model:
 run_full_model_pipeline:
 	python run.py
 
+# Profile specific components
+profile_train:
+	python -m cProfile -o reports/profiling/train.prof ./breast_cancer_classification/modeling/train.py
+
+profile_predict:
+	python -m cProfile -o reports/profiling/predict.prof ./breast_cancer_classification/modeling/predict.py
+
+profile_dataset:
+	python -m cProfile -o reports/profiling/dataset.prof ./breast_cancer_classification/dataset.py
+
+profile_run:
+	python -m cProfile -o reports/profiling/run.prof ./run.py
+
+# View profile outputs
+view_train_profile:
+	python profiling/read_train_cprofile.py reports/profiling/train.prof 
+
+view_predict_profile:
+	python profiling/read_predict_cprofile.py reports/profiling/predict.prof 
+
+view_dataset_profile:
+	python profiling/read_dataset_cprofile.py reports/profiling/dataset.prof 
+
+view_run_profile:
+	python profiling/read_run_cprofile.py reports/profiling/run.prof 
+
+# Visualize profiles with snakeviz
+viz_train_profile:
+	snakeviz reports/profiling/train.prof
+
+viz_predict_profile:
+	snakeviz reports/profiling/predict.prof
+
+viz_dataset_profile:
+	snakeviz reports/profiling/dataset.prof
+
+viz_run_profile:
+	snakeviz reports/profiling/run.prof
 
 #################################################################################
 # PROJECT RULES                                                                 #
