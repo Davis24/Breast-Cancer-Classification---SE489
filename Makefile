@@ -70,7 +70,7 @@ test_model:
 run_full_model_pipeline:
 	python run.py
 
-# Profile specific components
+# cProfile specific components
 profile_train:
 	python -m cProfile -o reports/profiling/train.prof ./breast_cancer_classification/modeling/train.py
 
@@ -108,6 +108,11 @@ viz_dataset_profile:
 
 viz_run_profile:
 	snakeviz reports/profiling/run.prof
+
+# PyTorch train profiling
+
+profile_pytorch_train:
+	python -m profiling.pytorch_train
 
 #################################################################################
 # PROJECT RULES                                                                 #

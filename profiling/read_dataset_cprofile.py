@@ -1,6 +1,5 @@
 from pathlib import Path
 import pstats
-import sys
 
 # Define paths
 base_dir = Path(__file__).resolve().parents[1]
