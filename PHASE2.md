@@ -14,9 +14,11 @@
   - [ ] Example debugging scenarios and solutions
 
 ## 3. Profiling & Optimization
-- [ ] **3.1 Profiling Scripts**
-  - [ ] cProfile, PyTorch Profiler, or similar used
-  - [ ] Profiling results and optimizations documented
+- **3.1 Profiling Scripts**
+  - Profilers: Both cProfile and PyTorch Profiler were used. PyTorch profiler wasn't useful in our case because the model is a logisitc regression using numpy arrays and pandas data frames. cProfile generated usable results. Various cProfile functions can be called via the Makefile.
+  - Profiling results and optimizations: The results as seen in snakeviz or in the tablular exports saved in reports-profiling, revealed that we have very lean code. In searching for optimmizations we determined that most of the time running was dedicated to training and importing libraries. Some libraries imported and unused were removed, in addition, a line of code that referenced unused variables in our training algororithm was removed. 
+    - tabular results stored in this folder [profiling](./reports/profiling/)
+    - snakeviz output for training profile in this file [train_snakeviz.pdf](./docs/train_snakeviz.pdf)
 
 ## 4. Experiment Management & Tracking
 - [ ] **4.1 Experiment Tracking Tools**
