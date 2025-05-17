@@ -35,6 +35,8 @@
 ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
 │                         the creator's initials, and a short `-` delimited description, e.g.
 │                         `1.0-jqp-initial-data-exploration`.
+|
+├── profiling          <- Profiling scripts to read and write results files
 │
 ├── pyproject.toml     <- Project configuration file with package metadata for 
 │                         breast_cancer_classification and configuration for tools like black
@@ -43,6 +45,7 @@
 │
 ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
 │   └── figures        <- Generated graphics and figures to be used in reporting
+|   └── profiling      <- Generated tables and results from profiling
 │
 ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
 │                         generated with `pip freeze > requirements.txt`
