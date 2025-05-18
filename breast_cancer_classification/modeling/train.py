@@ -73,13 +73,10 @@ def create_lr_model(max_iterv: int = 100) -> LogisticRegression:
         The logistic regression model.
 
     """
-    # Initialize logistic regression model using hyperparamters from wandb sweep
+    # Initialize logistic regression model
     lr_model = LogisticRegression(
-        C=1.0,
-        max_iter=max_iterv,
-        solver="lbfgs",
-        random_state=21
-    )  # default is 100, we were stopping at `300` iterations before converging as a result of the hyperparamter tuuning with wandb
+        max_iter=max_iterv
+    )  # default is 100, we were stopping at 100 iterations before converging on best solution
     return lr_model
 
 
