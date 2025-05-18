@@ -1,15 +1,13 @@
-program: Exercises/wandb/wandb_basic.py
-method: bayes
+program: experiments/wandb/wandb_logisitc.py
+method: grid # We want to explore all combinations of hyperparameters
 metric:
-  name: running_loss
-  goal: minimize
+  name: f1_score # Accuracy is not the best/only metric for logistic regression
+  goal: maximize
+
 parameters:
-  learning_rate:
-    min: 0.0001
-    max: 0.1
-    distribution: log_uniform
-  batch_size:
-    values: [16, 32, 64, 128]
-  dropout:
-    min: 0.1
-    max: 0.5
+  C:
+    values: [0.01, 0.1, 1.0, 10]
+  solver:
+    values: ["liblinear", "lbfgs"]
+  max_iter:
+    values: [100, 300, 500, 1000]

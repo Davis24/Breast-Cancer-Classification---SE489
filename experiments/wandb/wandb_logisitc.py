@@ -1,100 +1,62 @@
-import matplotlib.pyplot as plt
-import numpy as np
 import wandb
-import torch
-import torch.nn as nn
-import torchvision
+import sys
+import os
+from pathlib import Path
+# Add project root to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
+from breast_cancer_classification.config import PROCESSED_DATA_DIR
+from breast_cancer_classification.dataset import load_data
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import log_loss
 
 # 1. Start a new run
-wandb.init(project="my-awesome-project", name="week-7-experiment-advanced")
+wandb.init(project="breast-cancer-classification", name="logisitc regression")
 
-# 2. Configure model and training parameters
-config = wandb.config  # Initialize config
-config.batch_size = 64
-config.learning_rate = 0.01
-config.epochs = 10
+# 2. Initialize wandb config from sweep.yaml
+config = wandb.config 
 
-# 3. Create a simple model
-model = nn.Sequential(
-    nn.Linear(784, 128),
-    nn.ReLU(),
-    nn.Linear(128, 10)
+# 3. Load and preprocess data
+data_path = PROCESSED_DATA_DIR / "dataset.csv"
+df = load_data(data_path)
+X = df.drop(["diagnosis", "id"], axis=1)
+y = df["diagnosis"]
+# Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=21)
+
+# 4. Train logistic regression with sweepable parameters
+model = LogisticRegression(
+    C=config.C,
+    solver=config.solver,
+    max_iter=config.max_iter,
+    random_state=21
 )
+model.fit(X_train, y_train)
 
-# 4. Define loss function and optimizer
-criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=config.learning_rate)
+# Compute loss on both train and test sets
+train_loss = log_loss(y_train, model.predict_proba(X_train))
+test_loss = log_loss(y_test, model.predict_proba(X_test))
 
-# 5. Load data (simplified example)
-train_loader = torch.utils.data.DataLoader(
-    torchvision.datasets.MNIST('./data', train=True, download=True,
-                             transform=torchvision.transforms.ToTensor()),
-    batch_size=config.batch_size, shuffle=True)
+# Compute accuracy on both sets
+train_acc = model.score(X_train, y_train)
+test_acc = model.score(X_test, y_test)
 
-# 6. Training loop with WandB logging
-for epoch in range(config.epochs):
-    running_loss = 0.0
-    for i, (images, labels) in enumerate(train_loader):
-        # Flatten the images
-        images = images.view(images.shape[0], -1)
+# 5. Make predictions and compute metrics
+y_pred = model.predict(X_test)
 
-        # Forward pass
-        outputs = model(images)
-        loss = criterion(outputs, labels)
+metrics = {
+    "train_loss": train_loss,
+    "test_loss": test_loss,
+    "train_accuracy": train_acc,
+    "test_accuracy": test_acc,
+    "f1_score": f1_score(y_test, y_pred),
+    "accuracy": accuracy_score(y_test, y_pred),
+    "precision": precision_score(y_test, y_pred),
+    "recall": recall_score(y_test, y_pred)
+}
+wandb.log(metrics)
 
-        # Backward pass and optimize
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-
-        running_loss += loss.item()
-
-        if i % 100 == 99:  # Log every 100 mini-batches
-            wandb.log({
-                "epoch": epoch + 1,
-                "batch": i + 1,
-                "loss": running_loss / 100
-            })
-            running_loss = 0.0
-
-# During training, after processing a batch:
-
-# Log sample images
-images_sample = images[:4].view(-1, 28, 28).cpu().numpy()
-wandb.log({
-    "example_images": [wandb.Image(img) for img in images_sample],
-})
-
-# Log histograms of model weights
-for name, param in model.named_parameters():
-    if 'weight' in name:
-        wandb.log({f"histogram/{name}": wandb.Histogram(param.detach().cpu().numpy())})
-
-# Log a custom matplotlib figure
-fig, ax = plt.subplots()
-ax.plot(np.random.randn(100).cumsum())
-ax.set_title("Random Walk")
-wandb.log({"random_walk": wandb.Image(fig)})
-plt.close(fig)  # Don't forget to close the figure!
-
-# Log model predictions
-_, preds = torch.max(outputs, 1)
-wandb.log({
-    "accuracy": (preds == labels).float().mean().item(),
-    "confusion_matrix": wandb.plot.confusion_matrix(
-        probs=None,
-        y_true=labels.cpu().numpy(),
-        preds=preds.cpu().numpy(),
-        class_names=list(range(10))
-    )
-})
-
-# 7. Close the run
+# 6. Finish run
 wandb.finish()
-
-
-
-
-
-
-
