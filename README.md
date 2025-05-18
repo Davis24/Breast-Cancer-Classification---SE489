@@ -98,7 +98,7 @@ Conda was used for building and testing the makefile. Using anything else may re
 
 ## 6. Contribution Summary
 - Megan set up the repository and created the wiki page. She took the lead on addressing questions pertaining to git and version control, coded the KNN classifier, contributed to overall documentation, and parsed selected exploratory methods into different callable functions.
-- Nikki created the dvc pipeline, explored the data and logistic regression performance, and produced the logistic regression model that we ultimately chose to move forward with for this project, and she contributed to overall documentation.
+- Nikki created the dvc pipeline, explored the data and logistic regression performance, and produced the logistic regression model that we ultimately chose to move forward with for this project, and she contributed to overall documentation. In additon, she did the profiling and model experimentation on the project.
 - Abe contributed in writing the report, and readme. Additionally, Abe brought questions to the professor and esnured the team and project were steering in the right direction. Finally, Abe did some exploratory work considering the viability of the SVM model for this project.
 
 ## 7. References
