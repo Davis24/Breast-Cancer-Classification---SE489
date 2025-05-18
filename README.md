@@ -30,6 +30,9 @@
 │
 ├── docs               <- Default location for supporting documation documents.
 │
+├── experiments        <- Where modeling experiments will take place
+|   └── wandb          <- Where wandb experimentation scripts are housed.
+|
 ├── models             <- Trained and serialized models, model predictions, or model summaries
 │
 ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
@@ -51,6 +54,8 @@
 │                         generated with `pip freeze > requirements.txt`
 │
 ├── setup.cfg          <- Configuration file for flake8
+|
+├── wandb              <- Auto generated storage for all experiment run data resides from weights and biases.
 │
 └── beast_cancer_classification   <- Source code for use in this project.
     │
