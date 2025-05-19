@@ -29,5 +29,3 @@ RUN pip install -r requirements.txt --no-cache-dir
 # Run this command when the container launches.
 # -u line by line
 ENTRYPOINT ["python", "-u", "breast_cancer_classification/modeling/train.py"]
-
-## Copyfiles from docker to local.
