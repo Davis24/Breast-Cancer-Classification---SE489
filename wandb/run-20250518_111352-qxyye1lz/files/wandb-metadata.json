@@ -1,0 +1,43 @@
+{
+    "os": "macOS-15.4.1-arm64-arm-64bit",
+    "python": "CPython 3.11.11",
+    "heartbeatAt": "2025-05-18T16:13:52.419360",
+    "startedAt": "2025-05-18T16:13:52.148948",
+    "docker": null,
+    "args": [
+        "service",
+        "--debug",
+        "--port-filename",
+        "/var/folders/c9/4lmf4c5n2q9fnm1238mvpkqc0000gn/T/tmp30cfuigp/port-72871.txt",
+        "--pid",
+        "72871"
+    ],
+    "state": "running",
+    "program": "/Users/nicole.r.frank/Breast-Cancer-Classification---SE489/experiments/wandb/wandb_logisitc.py",
+    "codePathLocal": "experiments/wandb/wandb_logisitc.py",
+    "codePath": "experiments/wandb/wandb_logisitc.py",
+    "git": {
+        "remote": "https://github.com/Davis24/Breast-Cancer-Classification---SE489",
+        "commit": "596cff58e9ba000f64b632aa00febcad350761c4"
+    },
+    "email": "nfrank6@depaul.edu",
+    "root": "/Users/nicole.r.frank/Breast-Cancer-Classification---SE489",
+    "host": "MacBookPro.lan",
+    "username": null,
+    "executable": "/opt/anaconda3/envs/Breast-Cancer-Classification---SE489/bin/python",
+    "cpu_count": 8,
+    "cpu_count_logical": 8,
+    "disk": {
+        "/": {
+            "total": 994662584320,
+            "used": 769484836864
+        },
+        "/System/Volumes/Data": {
+            "total": 994662584320,
+            "used": 769484836864
+        }
+    },
+    "memory": {
+        "total": 17179869184
+    }
+}

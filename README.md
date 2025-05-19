@@ -30,11 +30,16 @@
 │
 ├── docs               <- Default location for supporting documation documents.
 │
+├── experiments        <- Where modeling experiments will take place
+|   └── wandb          <- Where wandb experimentation scripts are housed.
+|
 ├── models             <- Trained and serialized models, model predictions, or model summaries
 │
 ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
 │                         the creator's initials, and a short `-` delimited description, e.g.
 │                         `1.0-jqp-initial-data-exploration`.
+|
+├── profiling          <- Profiling scripts to read and write results files
 │
 ├── pyproject.toml     <- Project configuration file with package metadata for 
 │                         breast_cancer_classification and configuration for tools like black
@@ -43,11 +48,14 @@
 │
 ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
 │   └── figures        <- Generated graphics and figures to be used in reporting
+|   └── profiling      <- Generated tables and results from profiling
 │
 ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
 │                         generated with `pip freeze > requirements.txt`
 │
 ├── setup.cfg          <- Configuration file for flake8
+|
+├── wandb              <- Auto generated storage for all experiment run data resides from weights and biases.
 │
 └── beast_cancer_classification   <- Source code for use in this project.
     │
@@ -71,7 +79,7 @@
 
 ## 4. Phase Deliverables
 - [PHASE1.md](./PHASE1.md): Project Design & Model Development
-- [PHASE2.md](comming in future release): Enhancing ML Operations
+- [PHASE2.md](./PHASE2.md): Enhancing ML Operations
 - [PHASE3.md](coming in future release): Continuous ML & Deployment
 
 
@@ -86,11 +94,11 @@ Conda was used for building and testing the makefile. Using anything else may re
     - `make process_data`: This will run the data processing step of the model pipeline.
     - `make train_model`: This will run the modeling training step of the model pipeline.
     - `make test_model` : This will run the test step of the model pipeline.
-    - Lastly if you wish to run all the steps at once `make run_full_model_pipeline.py`.
+    - Lastly if you wish to run all the steps at once `make run_full_model_pipeline`.
 
 ## 6. Contribution Summary
 - Megan set up the repository and created the wiki page. She took the lead on addressing questions pertaining to git and version control, coded the KNN classifier, contributed to overall documentation, and parsed selected exploratory methods into different callable functions.
-- Nikki created the dvc pipeline, explored the data and logistic regression performance, and produced the logistic regression model that we ultimately chose to move forward with for this project, and she contributed to overall documentation.
+- Nikki created the dvc pipeline, explored the data and logistic regression performance, and produced the logistic regression model that we ultimately chose to move forward with for this project, and she contributed to overall documentation. In additon, she did the profiling and model experimentation on the project.
 - Abe contributed in writing the report, and readme. Additionally, Abe brought questions to the professor and esnured the team and project were steering in the right direction. Finally, Abe did some exploratory work considering the viability of the SVM model for this project.
 
 ## 7. References
