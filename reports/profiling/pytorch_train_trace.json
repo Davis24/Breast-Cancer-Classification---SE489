@@ -1,0 +1,67 @@
+
+{
+  "schemaVersion": 1,
+  "deviceProperties": [
+  ],
+  "record_shapes": 1,
+  "trace_id": "9B21BCAB715242D9BCA09487EEC6D4EE",
+  "traceEvents": [
+  {
+    "ph": "X", "cat": "user_annotation", "name": "train_model_full", "pid": 39388, "tid": 824188,
+    "ts": 3903963382833.137, "dur": 15433.082,
+    "args": {
+      "External id": 1,"Record function id": 0, "finished": true, "Ev Idx": 0
+    }
+  },
+  {
+    "name": "thread_name", "ph": "M", "ts": 3903963374868.000, "pid": 39388, "tid": 824188,
+    "args": {
+      "name": "thread 824188 ()"
+    }
+  },
+  {
+    "name": "thread_sort_index", "ph": "M", "ts": 3903963374868.000, "pid": 39388, "tid": 824188,
+    "args": {
+      "sort_index": 824188
+    }
+  },
+  {
+    "name": "thread_name", "ph": "M", "ts": 3903963374868.000, "pid": 39388, "tid": 824188,
+    "args": {
+      "name": "thread 824188 ()"
+    }
+  },
+  {
+    "name": "thread_sort_index", "ph": "M", "ts": 3903963374868.000, "pid": 39388, "tid": 824188,
+    "args": {
+      "sort_index": 824188
+    }
+  },
+  {
+    "ph": "X", "cat": "Trace", "ts": 3903963374806.000, "dur": 23489.000,
+    "pid": "Spans", "tid": "PyTorch Profiler",
+    "name": "PyTorch Profiler (0)",
+    "args": {
+      "Op count": 0
+    }
+  },
+  {
+    "name": "process_sort_index", "ph": "M", "ts": 3903963374806.000,
+    "pid": "Spans", "tid": 0,
+    "args": {
+      "sort_index": 536870912
+    }
+  },
+  {
+    "name": "Iteration Start: PyTorch Profiler", "ph": "i", "s": "g",
+    "pid": "Traces", "tid": "Trace PyTorch Profiler", "ts": 3903963374806.000
+  },
+  {
+    "name": "Record Window End", "ph": "i", "s": "g",
+    "pid": "", "tid": "", "ts": 3903963398403.000
+  }
+  ],
+  "traceName": "/Users/nicole.r.frank/Breast-Cancer-Classification---SE489/reports/profiling/pytorch_train_trace.json",
+  "displayTimeUnit": "ms",
+  "baseTimeNanoseconds": 1743521598000000000
+}

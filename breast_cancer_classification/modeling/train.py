@@ -79,7 +79,7 @@ def create_lr_model(max_iterv: int = 100) -> LogisticRegression:
     # Initialize logistic regression model
     lr_model = LogisticRegression(
         max_iter=max_iterv
-    )  # default is 100, we were stopping at `100` iterations before converging on best solution
+    )  # default is 100, we were stopping at 100 iterations before converging on best solution
     return lr_model
 
 
@@ -215,10 +215,10 @@ def main(cfg: DictConfig):
     data = load_data(processed_data_path)
 
     logger.info("Creating & Training logistic regression (LR) model...")
+
     X_train, X_test, y_train, y_test = create_test_train_split(
         data, test_size=test_size, random_state=random_state, debug=debug)
-    # this never gets used? ->> should go into LR Model
-    X_train_scaled, X_test_scaled = scale_data(X_train, X_test)
+        
     logger.info(f"X_train shape:{X_train.shape}")
     logger.info(f"X_test shape:{X_test.shape}")
     logger.info(f"y_train shape:{y_train.shape}")
@@ -226,6 +226,7 @@ def main(cfg: DictConfig):
 
     # Create and fit the logistic regression model
     logger.info("Creating LR model...")
+
     lr_model = create_lr_model()
     logger.info("Fitting LR model...")
     # Fit the model
