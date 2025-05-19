@@ -42,6 +42,11 @@ Running:
 
 Example: `docker run --name exp1 train:latest`
 
+## Moving Files
+
+In order to move files between docker images you will need to pull them from the docker image to your local. More information can be found [here](https://docs.docker.com/reference/cli/docker/container/cp/).
+
+`docker cp {container_name}:{dir_path}/{file_name} {local_dir_path}/{local_file_name}`
 
 ## Additional Information
 
