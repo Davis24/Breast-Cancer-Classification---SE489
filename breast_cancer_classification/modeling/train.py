@@ -2,7 +2,15 @@ import os.path
 from pathlib import Path
 import pickle
 import sys
+import time
 
+# Rich imports for enhanced logging
+from rich.console import Console
+from rich.logging import RichHandler
+from rich import print as rprint
+from rich.panel import Panel
+
+import logging
 from loguru import logger
 import pandas as pd
 from sklearn.linear_model import LogisticRegression  # type: ignore
@@ -18,6 +26,14 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..', '..
 
 from breast_cancer_classification.config import MODELS_DIR, PROCESSED_DATA_DIR
 from breast_cancer_classification.dataset import load_data
+
+console = Console()
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(message)s",
+    handlers=[RichHandler(rich_tracebacks=True, markup=True)]
+)
+log = logging.getLogger("train")
 
 app = typer.Typer()
 
@@ -36,7 +52,17 @@ def create_test_train_split(data: pd.DataFrame, debug: bool = False,test_size: f
     X = data.drop(["diagnosis", "id"], axis=1)
     y = data["diagnosis"]
     # Split data into training and testing sets
+    log.info(f"Splitting data with test_size={test_size}, random_state={random_state}")
+    start_time = time.time()
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
+    load_time = time.time() - start_time
+    log.info(f"Data split successfully in {load_time:.2f} seconds")
+    # Log dataset shapes
+    log.info(f"Train/Test Split Complete: ")
+    log.info(f"  • X_train: [yellow]{X_train.shape[0]} rows[/yellow], [yellow]{X_train.shape[1]} features[/yellow]")
+    log.info(f"  • X_test: [yellow]{X_test.shape[0]} rows[/yellow], [yellow]{X_test.shape[1]} features[/yellow]")
+    log.info(f"  • y_train: [yellow]{y_train.shape[0]} labels[/yellow] with distribution {dict(y_train.value_counts())}")
+    log.info(f"  • y_test: [yellow]{y_test.shape[0]} labels[/yellow] with distribution {dict(y_test.value_counts())}")
 
     if debug:
         print(f"X_train shape:{X_train.shape}")
@@ -58,10 +84,15 @@ def scale_data(X_train, X_test):
         The X_train and X_test data scaled.
 
     """
+    log.info(f"Scaling data with train size={X_train.shape}, test size={X_test.shape}")
+    start_time = time.time()
     # Scale features to ensure each has a mean of 0 and stdv of 1
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
+
+    load_time = time.time() - start_time
+    log.info(f"Data scaled successfully in {load_time:.2f} seconds")
 
     return X_train_scaled, X_test_scaled
 
@@ -76,10 +107,14 @@ def create_lr_model(max_iterv: int = 100) -> LogisticRegression:
         The logistic regression model.
 
     """
+    log.info(f"Intializing logistic regression model with max_iter={max_iterv}")
+    start_time = time.time()
     # Initialize logistic regression model
     lr_model = LogisticRegression(
         max_iter=max_iterv
     )  # default is 100, we were stopping at `100` iterations before converging on best solution
+    load_time = time.time() - start_time
+    log.info(f"LR model initialized successfully in {load_time:.2f} seconds")
     return lr_model
 
 
@@ -95,9 +130,14 @@ def fit_lr_model(lr_model: LogisticRegression, X_train, y_train):
         None
 
     """
-
+    log.info(f"Fitting logistic regression model with {X_train.shape[0]} training samples")
+    start_time = time.time()
     lr_model.fit(X_train, y_train)
-
+    load_time = time.time() - start_time
+    log.info(f"Model fitted successfully in {load_time:.2f} seconds")
+    log.info(f"Model coefficients: {lr_model.coef_}")
+    log.info(f"Model intercept: {lr_model.intercept_}")
+    log.info(f"Model score: {lr_model.score(X_train, y_train)}")
 
 def save_trained_model(lr_model: LogisticRegression, file_path: Path):
     """Save the trained model to the /models directory.
@@ -111,9 +151,12 @@ def save_trained_model(lr_model: LogisticRegression, file_path: Path):
 
 
     """
+    log.info(f"Saving logistic regression model to: {file_path}")
+    start_time = time.time()
     with open(file_path, "wb") as file:
         pickle.dump(lr_model, file)
-
+    load_time = time.time() - start_time
+    log.info(f"Model saved successfully in {load_time:.2f} seconds")
 
 #@app.command()
 @hydra.main(version_base="1.3", config_path="../conf", config_name="config")
