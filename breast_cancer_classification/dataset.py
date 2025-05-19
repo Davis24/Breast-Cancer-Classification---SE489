@@ -46,8 +46,8 @@ def load_data(data_filepath: Path, debug: bool = False) -> pd.DataFrame:
         load_time = time.time() - start_time
         
         # Log basic information about the loaded data
-        log.info(f"Data loaded successfully in [green]{load_time:.2f}[/green] seconds")
-        log.info(f"Dataset dimensions: [yellow]{data.shape[0]}[/yellow] rows, [yellow]{data.shape[1]}[/yellow] columns")
+        rprint(f"Data loaded successfully in [green]{load_time:.2f}[/green] seconds")
+        rprint(f"Dataset dimensions: [yellow]{data.shape[0]}[/yellow] rows, [yellow]{data.shape[1]}[/yellow] columns")
         
         # Calculate and log class distribution if 'diagnosis' column exists
         if 'diagnosis' in data.columns:
