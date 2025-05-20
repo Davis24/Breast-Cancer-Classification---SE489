@@ -52,4 +52,4 @@ In order to move files between docker images you will need to pull them from the
 
 ### `train.dockerfile` size vs `predict.dockerfile` size
 
-Traditionally we would expect to have our train and predict dockerfiles to be smaller than one another. However, breast-cancer-classification was built to act as a python module. Due to this we cannot easily separate out particular scripts or package requirements. As such both train and predict have the same size at ~1.0GB.
+Traditionally we would expect to have our train and predict dockerfiles to be smaller than one another. However, breast-cancer-classification was built to act as a python module. Due to this we cannot easily separate out particular scripts or package requirements. As such both train and predict have the same size at ~1.4GB.

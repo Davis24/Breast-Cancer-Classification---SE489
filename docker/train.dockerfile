@@ -17,7 +17,7 @@ COPY breast_cancer_classification/ breast_cancer_classification/
 COPY models/ models/
 COPY data/ data/
 
-# Run the installation, Run takes about 1.1 minute, 1.0GB
+# Run the installation, Run takes about 1.1 minute, 1.4GB
 WORKDIR /
 
 #Install all the packages in requirements and recusiverly. Also prevents storing them in cache, makes them smaller.

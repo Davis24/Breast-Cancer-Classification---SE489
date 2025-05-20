@@ -1,11 +1,24 @@
 # PHASE 2: Enhancing ML Operations with Containerization & Monitoring
 
 ## 1. Containerization
-- [ ] **1.1 Dockerfile**
-  - [ ] Dockerfile created and tested
-  - [ ] Instructions for building and running the container
-- [ ] **1.2 Environment Consistency**
-  - [ ] All dependencies included in the container
+- **1.1 Dockerfile**
+Docker documentation can be found in the `/docker/README.md` file, however we will duplicate some of the documentation here for ease of use.
+  - While we highly recommend you follow the [instructions](https://docs.docker.com/get-started/get-docker/) provided by Docker itself. However we will detail some brief instructions below. 
+    - Install Docker GUI for your respective operating system. We recommend the GUI since it is easy to use.   The installation .exe can be found [here](https://docs.docker.com/get-started/get-docker/).
+    - Follow the .exe instructions. 
+    - Once installed restart your machine.
+    - `VSCode` - If you wish to include Docker information in your VSCode you can install the [VScode Docker extension](https://code.visualstudio.com/docs/containers/overview).
+  - Commands:
+    - Building a docker image:
+      - Run `docker build --no-cache -f docker/<docker-file-name> . -t <tag-name>:latest`
+      - Example: `docker build --no-cache -f train.dockerfile . -t train:latest`
+    - Be patient this should take around 2-3 minutes to fully build.
+    - Running:
+      - Run `docker run --name <name> <tag-name>:latest`  
+      - Example: `docker run --name exp1 train:latest`
+  - Note: Traditionally we would expect to have our train and predict dockerfiles to be smaller than one another. However, breast-cancer-classification was built to act as a python module. Due to this we cannot easily separate out particular scripts or package requirements. As such both train and predict have the same size at ~1.4GB.
+- **1.2 Environment Consistency**
+  - All dependencies are built using the `requirements.txt` document. 
 
 ## 2. Monitoring & Debugging
 
