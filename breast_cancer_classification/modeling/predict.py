@@ -2,6 +2,16 @@ import os.path
 from pathlib import Path
 import pickle
 import sys
+import time
+
+# Rich imports for enhanced logging
+from rich.console import Console
+from rich.table import Table
+from rich.progress import track
+from rich.panel import Panel
+from rich import print as rprint
+from rich.logging import RichHandler
+import logging
 
 from loguru import logger
 import numpy as np
@@ -14,6 +24,17 @@ import typer
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..', '..')))
 
 from breast_cancer_classification.config import MODELS_DIR, PROCESSED_DATA_DIR
+
+
+# Set up Rich console and logging
+console = Console()
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(message)s",
+    datefmt="[%X]",
+    handlers=[RichHandler(rich_tracebacks=True)]
+)
+log = logging.getLogger("predict")
 
 app = typer.Typer()
 
@@ -31,12 +52,42 @@ def evaluate_lr_model(lr_model: LogisticRegression, X_test, y_test):
 
 
     """
+    """Evaluates the accuracy of logistic regression model and prints the results."""
+    log.info("Evaluating model performance...")
+    start_time = time.time()
+    # Make predictions with progress tracking
+    log.info("Making predictions on test data")
+
     # Make predictions
     y_pred = lr_model.predict(X_test)  # maybe split predictions out
     accuracy = accuracy_score(y_test, y_pred)
     conf_matrix = confusion_matrix(y_test, y_pred)
     class_report = classification_report(y_test, y_pred)
 
+    # Calculate metrics
+    accuracy = accuracy_score(y_test, y_pred)
+    conf_matrix = confusion_matrix(y_test, y_pred)
+    class_report_str = classification_report(y_test, y_pred)
+    # Log the time taken for evaluation
+    eval_time = time.time() - start_time
+    log.info(f"Model evaluation completed in {eval_time:.2f} seconds")
+    # Create rich table for confusion matrix
+    cm_table = Table(title="Confusion Matrix")
+    cm_table.add_column("", style="cyan")
+    cm_table.add_column("Predicted Negative", style="magenta")
+    cm_table.add_column("Predicted Positive", style="magenta")
+    
+    cm_table.add_row("Actual Negative", str(conf_matrix[0][0]), str(conf_matrix[0][1]))
+    cm_table.add_row("Actual Positive", str(conf_matrix[1][0]), str(conf_matrix[1][1]))
+    
+    # Log accuracy with Rich formatting
+    rprint(Panel(f"[bold green]Model Accuracy: {accuracy:.4f}[/bold green]", 
+                title="Evaluation Results", 
+                border_style="green"))
+    
+    # Display tables and raw classification report
+    console.print(cm_table)
+    console.print(Panel(class_report_str, title="Classification Report", border_style="blue"))
     # Print evaluation metrics
     print(f"Accuracy: {accuracy}")
     print(f"Confusion Matrix:\n {conf_matrix}")
@@ -59,6 +110,8 @@ def generate_feature_importance(
 
 
     """
+    log.info("Generating feature importance analysis...")
+    start_time = time.time()
     # Extract feature importance
     # Extract feature names from the dataset
     feature_names = original_df.columns
@@ -76,6 +129,30 @@ def generate_feature_importance(
 
     # Sort features by importance (absolute value of coefficient)
     feature_importance = feature_importance.sort_values(by="abs_coefficient", ascending=False)
+    # Create rich table for feature importance
+    importance_table = Table(title="Feature Importance")
+    importance_table.add_column("Rank", style="cyan", justify="right")
+    importance_table.add_column("Feature", style="green")
+    importance_table.add_column("Coefficient", style="magenta", justify="right")
+    importance_table.add_column("Abs Coefficient", style="yellow", justify="right")  
+
+    # Add top 10 features to the table
+    for i, (_, row) in enumerate(feature_importance.head(10).iterrows()):
+        importance_table.add_row(
+            f"{i+1}",
+            row["feature"],
+            f"{row['coefficient']:.6f}",
+            f"{row['abs_coefficient']:.6f}"
+        )
+    
+    console.print(importance_table)
+    # Log the time taken for feature importance generation
+    gen_time = time.time() - start_time
+    log.info(f"Feature importance analysis completed in {gen_time:.2f} seconds")
+    # Log summary of feature importance
+    top_feature = feature_importance.iloc[0]["feature"]
+    top_coefficient = feature_importance.iloc[0]["abs_coefficient"]
+    log.info(f"Most important feature: {top_feature} (coefficient magnitude: {top_coefficient:.6f})")      
 
     print("Feature Importance Data:")
     print(feature_importance)
@@ -95,10 +172,41 @@ def load_lr_model(filepath: Path):
 
     """
     # Load the model
-    with open(filepath, "rb") as file:
-        lr_model = pickle.load(file)
-
-    return lr_model
+    log.info(f"Loading model from: {filepath}")
+    
+    start_time = time.time()
+    
+    try:
+        with open(filepath, "rb") as file:
+            lr_model = pickle.load(file)
+        
+        load_time = time.time() - start_time
+        log.info(f"Model loaded successfully in {load_time:.2f} seconds")
+        
+        # Log model details
+        model_info = {
+            "Type": type(lr_model).__name__,
+            "Max Iterations": lr_model.max_iter,
+            "Solver": lr_model.solver,
+            "Penalty": lr_model.penalty if hasattr(lr_model, 'penalty') else "None",
+            "Classes": len(lr_model.classes_)
+        }
+        
+        # Create a table for model details
+        model_table = Table(title="Model Information")
+        model_table.add_column("Parameter", style="cyan")
+        model_table.add_column("Value", style="green")
+        
+        for param, value in model_info.items():
+            model_table.add_row(param, str(value))
+            
+        console.print(model_table)
+        
+        return lr_model
+    
+    except Exception as e:
+        log.error(f"Error loading model: {e}")
+        raise
 
 
 @app.command()
