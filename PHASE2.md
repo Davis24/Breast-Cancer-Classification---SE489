@@ -1,12 +1,17 @@
 # PHASE 2: Enhancing ML Operations with Containerization & Monitoring
 
+
+
 ## 1. Containerization
+
+For containerization we moved forward with using Docker. This allows us to create self-contained environments to execute the Breast Cancer Classification code without requiring everyone on the team to setup their own environment. Instead we built docker images for train and predict, that can be excecuted by docker CLIs. See the documentation below.
+
 - **1.1 Dockerfile**
-Docker documentation can be found in the `/docker/README.md` file, however we will duplicate some of the documentation here for ease of use.
-  - While we highly recommend you follow the [instructions](https://docs.docker.com/get-started/get-docker/) provided by Docker itself. However we will detail some brief instructions below. 
-    - Install Docker GUI for your respective operating system. We recommend the GUI since it is easy to use.   The installation .exe can be found [here](https://docs.docker.com/get-started/get-docker/).
-    - Follow the .exe instructions. 
-    - Once installed restart your machine.
+More detailed Docker documentation can be found in the `/docker/README.md` file, however we will duplicate some of the documentation here for ease of use.
+  - we highly recommend you follow the [instructions](https://docs.docker.com/get-started/get-docker/) provided by Docker itself. However we will detail some brief instructions below. 
+    - Install Docker GUI for your respective operating system. We recommend the GUI since it is easy to use.  The installation .exe can be found [here](https://docs.docker.com/get-started/get-docker/).
+    - Follow the .exe instructions. There is no reason to deviate from the standard instructions.
+    - Once installed restart your machine. 
     - `VSCode` - If you wish to include Docker information in your VSCode you can install the [VScode Docker extension](https://code.visualstudio.com/docs/containers/overview).
   - Commands:
     - Building a docker image:
@@ -22,9 +27,14 @@ Docker documentation can be found in the `/docker/README.md` file, however we wi
 
 ## 2. Monitoring & Debugging
 
-- [ ] **2.1 Debugging Practices**
-  - [ ] Debugging tools used (e.g., pdb)
-  - [ ] Example debugging scenarios and solutions
+After reviewing the tool recommended in the documentation, Prometheus, it was decided that this tool was heavy handed for the simplicity of our model. Instead the model performance is tracked by the logging provided within the other sections.
+
+- **2.1 Debugging Practices**
+  - When it came to debugging our code we utilized the pdb as well as tools within Visual Studio Code like Python Debugger Extension and Data Wrangler. Below we will detail some scenarios in which these tools were used.
+  - `Data Wrangler`: Often it can be difficult to visual large dataframes, this is because the traditional print tools within python are very limited. They require specific formatting and don't allow for any form of manipulation. Instead we can use the Data Wrangler plugin by Microsoft. It allows the dataframe to be opened in a separate panel within VS Code, from here the data can be sorted, filtered, and so on. This allows us to quickly identify if there are any issues within dataframe at each step.
+  - `Python Debugger Extension` & `pdb`: This two tools are very similar in the way they function. We mention them together because they both use the exact same type of interactions. Breakpoints and step throughs. The primary difference being the extension allows for the placement of breakpoints through the GUI in VSCode, whereas pdb requires the implementation of code snippets into the python file to be hit during execution. In our particular instance we primarily worked with the VScode debugger extension.
+    - An example of our usage with the python debugger extension is early on during the construction of the breast_cancer_classification module we were refactoring it from a .ipynb. As we were splitting code out in proper methods we needed to ensure the step through of the process was following the same path as th .ipynb. By using break points with step through we were able to ascertain that the code steps were following the same process as those in the .ipynb. 
+    - There are other areas in which this could be applied such as difficult to identify bugs or crashes however we did not experience any of those during the creation of our model.
 
 ## 3. Profiling & Optimization
 - **3.1 Profiling Scripts**
