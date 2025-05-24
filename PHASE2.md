@@ -60,19 +60,30 @@ After reviewing the tool recommended in the documentation, Prometheus, it was de
 
 
 ## 5. Application & Experiment Logging
-- [ ] **5.1 Logging Setup**
-  - [ ] logger and/or rich integrated
-  - [ ] Example log entries and their meaning
+- **5.1 Logging Setup**
+  - Logging is used to track the progress and help with debugging  of code. It is also used for error tracking. Thus, our team found it important that we both track logging via the console and storing the logs. 
+- We produced logs for three files, dataset.py, predict.py, and train.py. The file dataset.py handles loading and preprocessing the data for training. The train.py file works with hydra to take in the optimal model parameters, splits, fits,  and trains on the data. 
+Our approach to logging was to be fairly verbose. For our team it was important to be able to pinpoint where our code was at in the console’s logs. This helps with debugging and finding issues when they do occur. Thus, every function had some amount of logging. Most of our messages were info messages so we could monitor our progress throughout the running of the code, so logging with info acted as a checkpoint for our code. We also use success messages or failure messages to know if our code had completed properly.
+- Our team used other logging messages when relevant in our code like warning or error messages. For example in our load_data function in the dataset.py file, we print a warning if there are any missing values in our dataset. This is important because model training or performance can be deteriorated or stopped due to missing values. Thus, we wanted to be aware of when this issue could arise. We used error messages in our main function in the train.py file. Since the train.py main function performs many subtasks such as creating the model, writing data csvs, and fitting the model we wanted to put that portion of the code in a try block and raise errors in an except block with a log recorded for such errors. 
+We also logged information regarding general function and model performance. For example every function had a timing related log value. This is to track if any parts of the code are creating bottlenecks which could lead to future optimizations. Additionally, we print out information to our console like confusion matrices, data distribution, and model parameters. This allows the user to see the results of key sub-functions as the code is run. These values were printed to the console, but could not be written to a file. Thus, our logging process had two facets to it, console printing and file writing.
+- We used rich handlers for a lot of our logging. This was done to make the logs easier to read. Rich handlers also allow you to color certain aspects of the logs. This can be used to highlight key pieces of information that may be relevant to the user. In our case, we print the dimensions of the training and testing sets in yellow and the label distributions in blue. Often machine learning models can appear to be highly accurate, but instead are often just predicting 1 class value for everything. Because seeing both the dimensions and label distributions we can understand how many factors we are modelling with, and if our data is imbalanced.
+Finally we also created timestamped logs for our predict.py and dataset.py logs. This is so that for each time they are run, and new log can be created and associated with a specific time so we can track our experiments and their results.
+Overall logging was used as a way to dynamically monitor our model runs and store the associated logs. 
+
 
 ## 6. Configuration Management
-- [ ] **6.1 Hydra or Similar**
-  - [ ] Configuration files created
-  - [ ] Example of running experiments with different configs
+  **6.1 Hydra or Similar**
+- Hydra is a tool used in MLOPs for configuring parameters in one’s project pipeline. Thus, I created three different yaml files to be used by hydra. The first file is a config.yaml file. This file drives much of the relevant information regarding both the inputs and the outputs of our team’s model. Our team is modelling breast cancer classification and as a result we are using a logistic regression for our model which means our parameters used in hydra, reflect those of a logistic regression. 
+- We separated the config.yaml file into three areas, data, train, model. The section labelled Data hold the information regarding where the features and labels will be written to. It also holds the file path to the dataset for training the model. The train section sets whether debugging is defaulted to and whether the data should be scaled. It also contains the random state and test size. The model section pertains to the parameters used in the model and their associated values. For our model the only parameter we used was max_iter which controls the maximum amount of iterations for the fitting of the model. It also contains the path where the model will be dumped to a pkl file. 
+We also created a file called hydra.yaml. This file helps indicate where files should be saved. Additionally it covers that log messages should be associated with levels and timestamps. It also covers the run setting for the experiments we could be running in hydra. We also create an overrides file that controls anything that may need to be overwritten like command line overrides. Since we don’t have any in our model this file is effectively blank.
+- For our hydra experiment we decided to only run one model. This is because Nikki was able to use other MLOPs tool for optimization to find the optimal model. Thus, it would have been redundant to reproduce multiple experiments when the optimal model was found. Despite only making 1 model, the structure of the pipeline allows for many more models to be made. Specifically, the config.yaml file could be rewritten to test a broader swath of parameter values. Additionally, we could have tested more logistic regression parameters like the C value which controls the regularization parameter. We also made the random state a parameter that can be maintained or changed so that our experiment can be replicable by other users of this overall pipeline, with reproducible results.  Ultimately, we used hydra to test and reuse experiments in an easily iterable and reproducible manner.
+
 
 ## 7. Documentation & Repository Updates
-- [ ] **7.1 Updated README**
-  - [ ] Instructions for all new tools and processes
-  - [ ] All scripts and configs included in repo
+- [X] **7.1 Updated README**
+  - [X] Instructions for all new tools and processes
+  -  [text](.hydra/config.yaml)
+  -  [text](.hydra/hydra.yaml)
 
 ---
 

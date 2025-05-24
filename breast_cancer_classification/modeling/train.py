@@ -165,6 +165,9 @@ def save_trained_model(lr_model: LogisticRegression, file_path: Path):
 #@app.command()
 @hydra.main(version_base="1.3", config_path="../conf", config_name="config")
 def main(cfg: DictConfig):
+
+
+
     """Main function to train a logistic regression model."""
     
     # Debug information

@@ -3,6 +3,7 @@ from pathlib import Path
 import pickle
 import sys
 import time
+from datetime import datetime
 
 # Rich imports for enhanced logging
 from rich.console import Console
@@ -28,14 +29,37 @@ from breast_cancer_classification.config import MODELS_DIR, PROCESSED_DATA_DIR
 
 # Set up Rich console and logging
 console = Console()
+# Create logs directory if it doesn't exist
+log_dir = Path("logs")
+log_dir.mkdir(exist_ok=True)
+
+# Create timestamped log file
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+log_file = log_dir / f"predict_{timestamp}.log"
+
+# Create separate formatters for console and file
+console_formatter = logging.Formatter("%(message)s", datefmt="[%X]")
+file_formatter = logging.Formatter(
+    "[%(asctime)s][%(name)s][%(levelname)s] - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S"
+)
+
+# Create handlers with their respective formatters
+console_handler = RichHandler(rich_tracebacks=True)
+console_handler.setFormatter(console_formatter)
+
+file_handler = logging.FileHandler(log_file)
+file_handler.setFormatter(file_formatter)
+
+# Configure logging with both handlers
 logging.basicConfig(
     level=logging.INFO,
-    format="%(message)s",
-    datefmt="[%X]",
-    handlers=[RichHandler(rich_tracebacks=True)]
+    handlers=[console_handler, file_handler]
 )
 log = logging.getLogger("predict")
 
+# Print the log file path so user knows where logs are being saved
+log.info(f"Logs are being saved to: {log_file.absolute()}")
 app = typer.Typer()
 
 
