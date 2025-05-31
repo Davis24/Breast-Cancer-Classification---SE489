@@ -4,6 +4,8 @@ import pickle
 import sys
 import time
 
+
+
 # Rich imports for enhanced logging
 from rich.console import Console
 from rich.logging import RichHandler
@@ -18,6 +20,9 @@ from sklearn.model_selection import train_test_split  # type: ignore
 from sklearn.preprocessing import StandardScaler  # type: ignore
 import typer
 import hydra
+#imports for cml metrics and plots
+import matplotlib.pyplot as plt  # REQUIRED for plotting
+from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay  # REQUIRED for evaluation
 from omegaconf import DictConfig, OmegaConf
 
 
@@ -233,6 +238,26 @@ def main(cfg: DictConfig):
 
         logger.info(f"Saving LR model: {model_path}")
         save_trained_model(lr_model, model_path)
+
+        # Metrics and plotting for cml.yml
+        logger.info("Evaluating model and saving metrics and plot...")
+        y_pred = lr_model.predict(X_test)
+        accuracy = accuracy_score(y_test, y_pred)
+
+        with open("metrics.txt", "w") as f:
+            f.write("### Model Evaluation\n")
+            f.write(f"- Accuracy: {accuracy:.4f}\n")
+
+        cm = confusion_matrix(y_test, y_pred)
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+        disp.plot()
+        plt.title("Confusion Matrix")
+        plt.savefig("plot.png")
+        plt.close()
+
+
+
+
         logger.success("Model training complete.")
     except Exception as e:
         logger.error(f"Error during training: {e}")
