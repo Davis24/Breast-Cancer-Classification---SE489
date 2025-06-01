@@ -2,28 +2,35 @@ import os.path
 from pathlib import Path
 import sys
 import time
+from datetime import datetime
 
-# Rich imports for enhanced logging
 from rich.console import Console
-from rich import print as rprint
 from rich.logging import RichHandler
-from rich.progress import Progress, SpinnerColumn, TextColumn, TimeElapsedColumn
-from rich.traceback import install
+from rich import print as rprint
+from rich.panel import Panel
+
 import logging
 
 from loguru import logger
 import pandas as pd
 import typer
 
-sys.path.append( os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from breast_cancer_classification.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
+import os
+print("Current working directory:", os.getcwd())
+# Set up logging with RichHandler for console and FileHandler for file
+timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+log_file = Path("logs") / f"dataset_{timestamp}.log"
 
-console = Console()
 logging.basicConfig(
     level=logging.INFO,
-    format="%(message)s",
-    handlers=[RichHandler(rich_tracebacks=True, markup=True)]
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[
+        RichHandler(rich_tracebacks=True, markup=True),
+        logging.FileHandler(log_file, mode="w", encoding="utf-8")
+    ]
 )
 log = logging.getLogger("dataset")
 
@@ -36,48 +43,40 @@ def load_data(data_filepath: Path, debug: bool = False) -> pd.DataFrame:
 
     Returns:
         The new dataframe.
-
     """
     start_time = time.time()
-    log.info(f"Loading data from: [blue]{data_filepath}[/blue]")
+    log.info(f"Loading data from: {data_filepath}")
 
     try:
         data = pd.read_csv(data_filepath)
         load_time = time.time() - start_time
         
-        # Log basic information about the loaded data
-        rprint(f"Data loaded successfully in [green]{load_time:.2f}[/green] seconds")
-        rprint(f"Dataset dimensions: [yellow]{data.shape[0]}[/yellow] rows, [yellow]{data.shape[1]}[/yellow] columns")
+        log.info(f"Data loaded successfully in {load_time:.2f} seconds")
+        log.info(f"Dataset dimensions: {data.shape[0]} rows, {data.shape[1]} columns")
         
-        # Calculate and log class distribution if 'diagnosis' column exists
         if 'diagnosis' in data.columns:
             class_counts = data['diagnosis'].value_counts()
             log.info(f"Class distribution: {dict(class_counts)}")
         
-        # Log column types summary
         type_counts = data.dtypes.value_counts()
         log.info(f"Column types: {dict(type_counts)}")
         
-        # Check for missing values
         missing = data.isnull().sum().sum()
         if missing > 0:
-            log.warning(f"Found [red]{missing}[/red] missing values in the dataset")
+            log.warning(f"Found {missing} missing values in the dataset")
         else:
-            log.info("[green]No missing values[/green] found in the dataset")
+            log.info("No missing values found in the dataset")
 
-        # Verify the data is loaded correctly
         if debug:
             print("Data Head")
-            print(data.head())  # Display the first few rows of the dataset
+            print(data.head())
             print("Data Info")
-            data.info()  # Display information about the dataset
+            data.info()
     except Exception as e:
-        log.error(f"[bold red]Error loading data:[/bold red] {str(e)}")
+        log.error(f"Error loading data: {str(e)}")
         raise
     return data
 
-
-# Pass by Object Reference >> Dataframes are fine to pass and not return
 def preprocess_data(data: pd.DataFrame):
     """Preprocess the data in the dataframe.
 
@@ -86,41 +85,31 @@ def preprocess_data(data: pd.DataFrame):
 
     Returns:
         None.
-
     """
     log.info("Starting data preprocessing")
     start_time = time.time()
 
-    # Convert 'diagnosis' column to numeric (e.g., 'B' -> 0, 'M' -> 1)
     data["diagnosis"] = data["diagnosis"].map({"B": 0, "M": 1})
     load_time = time.time() - start_time
     
-    # Log basic information about the loaded data
-    log.info(f"Data loaded successfully in [green]{load_time:.2f}[/green] seconds")
+    log.info(f"Data preprocessing completed in {load_time:.2f} seconds")
 
-# Typer used to allow us to test methods specifically if we direct call it
 app = typer.Typer()
-
 
 @app.command()
 def main(
-    # ---- REPLACE DEFAULT PATHS AS APPROPRIATE ----
     input_path: Path = RAW_DATA_DIR / "dataset.csv",
     output_path: Path = PROCESSED_DATA_DIR / "dataset.csv",
-    # ----------------------------------------------
 ):
-    
-    
-    log.info("[bold green]Starting data preprocessing pipeline[/bold green]")
+    log.info("Starting data preprocessing pipeline")
     start_time = time.time()
-    logger.info(f"Loading data from: {input_path}")
+    log.info(f"Loading data from: {input_path}")
     data = load_data(input_path)
     preprocess_data(data)
     data.to_csv(output_path, index=False)
     load_time = time.time() - start_time
-    log.info(f"Data preprocessing completed in [green]{load_time:.2f}[/green] seconds")
+    log.info(f"Data preprocessing completed in {load_time:.2f} seconds")
     logger.success(f"Finished preprocessing the data, output: {output_path}")
-
 
 if __name__ == "__main__":
     app()
