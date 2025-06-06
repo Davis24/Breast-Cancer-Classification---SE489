@@ -16,6 +16,7 @@ COPY pyproject.toml pyproject.toml
 COPY breast_cancer_classification/ breast_cancer_classification/
 COPY models/ models/
 COPY data/ data/
+COPY run.py run.py
 
 # Run the installation, Run takes about 1.1 minute, 1.4GB
 WORKDIR /
@@ -31,4 +32,4 @@ RUN mkdir -p /logs
 
 # Run this command when the container launches.
 # -u line by line
-ENTRYPOINT ["python", "-u", "breast_cancer_classification/modeling/train.py"]
+ENTRYPOINT ["python", "-u", "run.py"]

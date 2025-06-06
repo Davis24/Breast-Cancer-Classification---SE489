@@ -1,24 +1,22 @@
+from datetime import datetime
+import logging
 import os.path
 from pathlib import Path
+import shutil
 import sys
 import time
-from datetime import datetime
-
-from rich.console import Console
-from rich.logging import RichHandler
-from rich import print as rprint
-from rich.panel import Panel
-
-import logging
 
 from loguru import logger
 import pandas as pd
+from rich.logging import RichHandler
 import typer
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from breast_cancer_classification.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
 import os
+
+from breast_cancer_classification.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
+
 print("Current working directory:", os.getcwd())
 # Set up logging with RichHandler for console and FileHandler for file
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -103,6 +101,18 @@ def main(
 ):
     log.info("Starting data preprocessing pipeline")
     start_time = time.time()
+
+    # Check if the DVC-tracked source file exists
+    dvc_source = Path("data/breast-cancer.csv")
+    raw_destination = RAW_DATA_DIR / "dataset.csv"
+    raw_destination.parent.mkdir(parents=True, exist_ok=True)
+
+    if dvc_source.exists():
+        shutil.copy(dvc_source, raw_destination)
+        log.info(f"Copied DVC-tracked file from {dvc_source} to {raw_destination}")
+    else:
+        log.warning(f"{dvc_source} not found, using existing file at {raw_destination} if available.")
+
     log.info(f"Loading data from: {input_path}")
     data = load_data(input_path)
     preprocess_data(data)

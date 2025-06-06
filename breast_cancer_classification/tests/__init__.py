@@ -1,7 +1,8 @@
 # tests/__init__.py
-import sys
+
 import os
 from pathlib import Path
+import sys
 
 # Get the correct directory structure
 TESTS_DIR = Path(__file__).parent              # .../breast_cancer_classification/tests

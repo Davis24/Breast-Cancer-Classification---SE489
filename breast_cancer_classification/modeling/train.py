@@ -1,30 +1,35 @@
+import logging
 import os.path
 from pathlib import Path
 import pickle
 import sys
 import time
 
+import hydra
+from loguru import logger
+
+#imports for cml metrics and plots
+import matplotlib.pyplot as plt  # REQUIRED for plotting
+from omegaconf import DictConfig, OmegaConf
+import pandas as pd
+from rich import print as rprint
+
 # Rich imports for enhanced logging
 from rich.console import Console
 from rich.logging import RichHandler
-from rich import print as rprint
-from rich.panel import Panel
-
-import logging
-from loguru import logger
-import pandas as pd
 from sklearn.linear_model import LogisticRegression  # type: ignore
+from sklearn.metrics import (  # REQUIRED for evaluation
+    ConfusionMatrixDisplay,
+    accuracy_score,
+    confusion_matrix,
+)
 from sklearn.model_selection import train_test_split  # type: ignore
 from sklearn.preprocessing import StandardScaler  # type: ignore
 import typer
-import hydra
-from omegaconf import DictConfig, OmegaConf
-
 
 ## Required otherwise it will error out in the makefile
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..', '..')) )
 
-from breast_cancer_classification.config import MODELS_DIR, PROCESSED_DATA_DIR
 from breast_cancer_classification.dataset import load_data
 
 console = Console()
@@ -59,7 +64,7 @@ def create_test_train_split(data: pd.DataFrame, debug: bool = False,test_size: f
     load_time = time.time() - start_time
     log.info(f"Data split successfully in {load_time:.2f} seconds")
     # Log dataset shapes
-    log.info(f"Train/Test Split Complete: ")
+    log.info("Train/Test Split Complete: ")
     rprint(f"  • X_train: [yellow]{X_train.shape[0]} rows[/yellow], [yellow]{X_train.shape[1]} features[/yellow]")
     rprint(f"  • X_test: [yellow]{X_test.shape[0]} rows[/yellow], [yellow]{X_test.shape[1]} features[/yellow]")
     rprint(f"  • y_train: [yellow]{y_train.shape[0]} labels[/yellow] with distribution {dict(y_train.value_counts())}")
@@ -233,6 +238,26 @@ def main(cfg: DictConfig):
 
         logger.info(f"Saving LR model: {model_path}")
         save_trained_model(lr_model, model_path)
+
+        # Metrics and plotting for cml.yml
+        logger.info("Evaluating model and saving metrics and plot...")
+        y_pred = lr_model.predict(X_test)
+        accuracy = accuracy_score(y_test, y_pred)
+
+        with open("metrics.txt", "w") as f:
+            f.write("### Model Evaluation\n")
+            f.write(f"- Accuracy: {accuracy:.4f}\n")
+
+        cm = confusion_matrix(y_test, y_pred)
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+        disp.plot()
+        plt.title("Confusion Matrix")
+        plt.savefig("plot.png")
+        plt.close()
+
+
+
+
         logger.success("Model training complete.")
     except Exception as e:
         logger.error(f"Error during training: {e}")

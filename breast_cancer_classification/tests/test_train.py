@@ -1,17 +1,17 @@
 # tests/test_training.py
-import pytest
-import pandas as pd
-import numpy as np
-import pickle
-import tempfile
+
 import os
 from pathlib import Path
-from sklearn.linear_model import LogisticRegression
-from omegaconf import DictConfig, OmegaConf
 
 # Import project modules using the same pattern as your other tests
 import sys
-from pathlib import Path
+
+import numpy as np
+from omegaconf import OmegaConf
+import pandas as pd
+import pytest
+from sklearn.linear_model import LogisticRegression
+
 
 # Get the correct paths
 current_file = Path(__file__).resolve()
@@ -27,17 +27,16 @@ if str(project_root) not in sys.path:
 os.environ["PROJ_ROOT"] = str(project_root)
 
 # Import the functions to test
-from breast_cancer_classification.modeling.train import (
-    create_test_train_split,
-    scale_data,
-    create_lr_model,
-    fit_lr_model,
-    save_trained_model
-)
 
 # Import data loading functions
 from breast_cancer_classification.config import RAW_DATA_DIR
 from breast_cancer_classification.dataset import load_data, preprocess_data
+from breast_cancer_classification.modeling.train import (
+    create_lr_model,
+    create_test_train_split,
+    fit_lr_model,
+    scale_data,
+)
 
 # Use the path from config
 TEST_DATASET_PATH = Path(RAW_DATA_DIR) / "dataset.csv"

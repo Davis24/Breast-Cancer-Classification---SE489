@@ -21,6 +21,10 @@ COPY data/ data/
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 
+
+# Need this directory to exist for logging
+RUN mkdir -p /logs
+
 # This command currently takes _way_ to long, 
 #RUN pip install . --no-deps --no-cache-dir 
 

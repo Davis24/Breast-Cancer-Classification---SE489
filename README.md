@@ -26,7 +26,8 @@
 │   ├── external       <- Data from third party sources.
 │   ├── interim        <- Intermediate data that has been transformed.
 │   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
+│   └── raw            <- The original, immutable data dump. copy of dvc controlled data
+|   breast-cancer.csv  <- the dvc tracked dataset
 │
 ├── docs               <- Default location for supporting documation documents.
 │
@@ -90,6 +91,11 @@ Conda was used for building and testing the makefile. Using anything else may re
     - Environmental setup can be handle by running a set of commands through the makefile. 
     - `make create_environment`: This command will setup a python interpreter environment. (Conda)
     - `make requirements`: Will install all Python dependencies.
+- How to get the data via dvc, you will need to to successfully run the code
+    - you need access to the secret key .dvc/secrets is where it's stored but you may need to contact the project owner to get the key
+    - pip install dvc[gdrive] if you haven't already installed requirements
+    - run dvc init in order to connect with the remote repo
+    - run dvc pull
 - How to run the code and reproduce results: 
     - `make process_data`: This will run the data processing step of the model pipeline.
     - `make train_model`: This will run the modeling training step of the model pipeline.

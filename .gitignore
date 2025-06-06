@@ -182,3 +182,5 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+#Ignore local secrets
+.dvc/secrets/service_account.json

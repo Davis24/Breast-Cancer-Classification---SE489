@@ -1,22 +1,21 @@
+from datetime import datetime
+import logging
 import os.path
 from pathlib import Path
 import pickle
 import sys
 import time
-from datetime import datetime
-
-# Rich imports for enhanced logging
-from rich.console import Console
-from rich.table import Table
-from rich.progress import track
-from rich.panel import Panel
-from rich import print as rprint
-from rich.logging import RichHandler
-import logging
 
 from loguru import logger
 import numpy as np
 import pandas as pd
+from rich import print as rprint
+
+# Rich imports for enhanced logging
+from rich.console import Console
+from rich.logging import RichHandler
+from rich.panel import Panel
+from rich.table import Table
 from sklearn.linear_model import LogisticRegression  # type: ignore
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix  # type: ignore
 import typer
@@ -25,7 +24,6 @@ import typer
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..', '..')))
 
 from breast_cancer_classification.config import MODELS_DIR, PROCESSED_DATA_DIR
-
 
 # Set up Rich console and logging
 console = Console()
