@@ -6,6 +6,7 @@
   - [ ] Documentation of the testing process and example test cases
 - [ ] **1.2 GitHub Actions Workflows**
   - We have created actions in the github project and also added the workflow yaml files to the project directiory, which can be found in `./github/workflows`. There are a total of three actions and yaml files. We have the `ruff.yml` which contains the information for running ruff, `docker-image.yml` for docker, and `cml.yml` for model-training. As for the project actions, you where you can find `Ruff`, `model-training`, and `Docker Image Continuous integration`. We setup the `Ruff` workflow to run on each push.
+  - **NOTE: It is expected that some of these checks will fail due to the fact we need a particular ordering in the code for it to work. However, we fixed any errors that were needed.**
   
 - [ ] **1.3 Pre-commit Hooks**
   - As for the pre-commit hooks we decided to focus on adding `mypy` and `ruff`. For adding pre-commit hooks you need to first install the `pre-commit` framework using `pip install pre-commit`. From then on we can create a yaml file to store our precommit requirements. We created `.pre-commit-config.yaml`, in here we put in the logic for checks that run with each step. We want to note that the reason we have SKIPPED is because in this commit we were not adding any NEW files that would require ruff or mypy formatting.
