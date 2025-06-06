@@ -1,25 +1,22 @@
+from datetime import datetime
+import logging
 import os.path
 from pathlib import Path
+import shutil
 import sys
 import time
-import shutil
-from datetime import datetime
-
-from rich.console import Console
-from rich.logging import RichHandler
-from rich import print as rprint
-from rich.panel import Panel
-
-import logging
 
 from loguru import logger
 import pandas as pd
+from rich.logging import RichHandler
 import typer
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from breast_cancer_classification.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
 import os
+
+from breast_cancer_classification.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
+
 print("Current working directory:", os.getcwd())
 # Set up logging with RichHandler for console and FileHandler for file
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")

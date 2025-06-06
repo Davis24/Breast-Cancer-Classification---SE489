@@ -67,7 +67,7 @@
   - Once it is created you can click into it and parse through the various tabs. This is where your data will be output / stored. 
   
 - [ ] **3.3 Deploying API with FastAPI & GCP Cloud Functions**
-  Note for clarification GCP Cloud Functions was renamed in 2024 to Cloud Run Functions.In addition because of this both the Cloud Run and Cloud Function exist in the same space, so they're providing the same service. The only difference is the utilization of a function script versus a docker img.
+  Note for clarification GCP Cloud Functions was renamed in 2024 to Cloud Run Functions. In addition because of this both the Cloud Run and Cloud Function exist in the same space, so they're providing the same service. The only difference is the utilization of a function script versus a docker img.
 
   - For FASTAPI we will be setting up an API to allow us to pass data into the API and it return a classification. We will not be going into what APIs are or how they work (outside of their implementation for this project). We recommend you review some standard API literature if you are unsure how it works.
     - First we need to install FastAPI  `pip install fastapi uvicorn`. 
