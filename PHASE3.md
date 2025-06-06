@@ -67,11 +67,39 @@
   - Once it is created you can click into it and parse through the various tabs. This is where your data will be output / stored. 
   
 - [ ] **3.3 Deploying API with FastAPI & GCP Cloud Functions**
-  - [ ] FastAPI app for model predictions
-  - [ ] Deployment steps and API testing instructions
+  Note for clarification GCP Cloud Functions was renamed in 2024 to Cloud Run Functions.In addition because of this both the Cloud Run and Cloud Function exist in the same space, so they're providing the same service. The only difference is the utilization of a function script versus a docker img.
+
+  - For FASTAPI we will be setting up an API to allow us to pass data into the API and it return a classification. We will not be going into what APIs are or how they work (outside of their implementation for this project). We recommend you review some standard API literature if you are unsure how it works.
+    - First we need to install FastAPI  `pip install fastapi uvicorn`. 
+    - Next we need to create a directory to store the FastAPI app, in our project we chose `app`. But it can be named anything. 
+    - Inside `app` we made a new file called `app.py`. In this file we imported any required packages, as well as setting up FastAPI using the line `app = FastAPI()`.
+    - In this file we need to define the routes we want `/` is the home page. For this we put a simple message. As for `/predict`, we ingest data from the user that then is fed into the model to predict. Once we generate the predictions we return it. 
+    - As part of this we will also need to run a docker image that will function as the webserver for this. This handles the request part of the `post` and `get` sections. In our project we created a `app/Dockerfile`. 
+    - When you run the docker contain you will need to specify the ports to run on `docker run -d -p 8000:8000 <dockerimgname>`
+    - Once the docker image is running we can test by passing a post request with values. An example might be `json" -H "Content-Type: application/json" -d '{"features": [17.99,10.38,122.8,1001,0.1184,0.2776,0.3001,0.1471,0.2419,0.07871,1.095,0.9053,8.589,153.4,0.006399,0.04904,0.05373,0.01587,0.03003,0.006193,25.38,17.33,184.6,2019,0.1622,0.6656,0.7119,0.2654,0.4601,0.1189]}'`
+
+  - Cloud Functions is the second part of the API deployment setup. It will require some setup steps within the cloud to work. 
+    - Cloud function requires the enablement of a specific API. If it is not enabled GCP will request you enable it. Once enabled you can continue on into creating a function.
+    - In the Create Services section there will be multiple options we want to select Function - Use an Inline editor to create a function. You will need to provide the Service Name, Region and Endpoint URL, and Runtime. We created our own name `mlops489-breastcancer-service`, selected a nearby region US-Mexico Python 3.11. You can add a trigger if needed. The rest of the options depend on your project and requirements. We didn't choose anything unusual here. 
+    - The creating make take a few moments but when complete, you should see that it successfully ran.
+      <img src="./docs/cloudfunctions.png" width="300">
+    - Now you can modify the `main.py` and `requirements.py`, you can check our repo for those if you wish to copy. 
+    - Once you update these files you can save and redeploy. It will take a few moments to run (depending on all the changes made). To validate everything is work there are multiple ways to check. You can check through the `Logs` tab, navigate through the URL, or even as it becomes more suffisticated use an API tester like Postman for these steps. For us we just manually valiated that the URL worked. 
+     <img src="./docs/gcp_server1.png" width="400">
+      <img src="./docs/gcp_service.png" width="200">
+    - We could have explored this more, however as we noted above GCP Cloud Function and Cloud Run are part of the same service now. 
 - [ ] **3.4 Dockerize & Deploy Model with GCP Cloud Run**
-  - [ ] Containerization and deployment steps
-  - [ ] Testing and result documentation
+  - For dockerizing and deploying a model with GCP cloud run a lot of the steps will follow what we described in 3.1 GCP Artifact Registry, the reason for this is we have already setup and deployed our dockerized model as part of those steps. If at any point we needed to augment the dockerfile we can simply rebuild and the already existing pipeline will create it. However, we can go ahead and create a cloud run that ties to that docker instance. We decided to use the GUI first as it was easier to navigate compared to the CLI commands.
+    1. First, in the Cloud GCP GUI navigate to Cloud Run. In the top left click Deploy container.
+    2. Now there are a couple of different options. If you have a static image you can define it to setup with an existing image in the artifact registery. Github, if you think you'll be rebuilding frequently. 
+    3. Depending on which you choose you will need to connect to github, or you will need to select your docker img. 
+    4. Select what you wish to setup for either of these. Things like: CPU, Hosting Data Center, and IAM policy will be dependant upon your project. For us we chose CPU only when needed, IAM any access, and Mexico hosting center.
+    5. Wait for it to be built. This may take a few minutes.
+      <img src="./docs/cloud_run2.png" width="500">
+    6. Once the image is successfully built you can navigate to the provided URL.
+    7. KEEP IN MIND! Depending on your security settings anyone can access this URL, do not store sensitive information without proper security on an external facing URL. In addition if you're exposing an API to the public we recommend you look into adding rate limiting to prevent abuse. We've included additional resources on this below. 
+      - https://datadome.co/bot-management-protection/what-is-api-rate-limiting/
+      - https://medium.com/@bijit211987/everything-you-need-to-know-about-rate-limiting-for-apis-f236d2adcfff
 - [ ] **3.5 Interactive UI Deployment**
   - [ ] Streamlit or Gradio app for model demonstration
   - [ ] Deployment on Hugging Face platform
