@@ -114,7 +114,6 @@ HF_SPACE_NAME: StreamlitProduction
 -Additinoally, we had to update our deploy.yaml to accommodate deploying on huggingface. We also needed to update our gitignore file as this was causing conflicts with our deploy.yaml file. Finally, due to conflict with huggingface we needed to update our requirements file to align with what huggingface was able to deploy. 
 ![alt text](<docs/Github Actions Secrets.png>)
 ![alt text](<docs/Streamlit displayed.gif>)
-
 - Link to huggingface deployment: https://huggingface.co/spaces/aberkley123/StreamlitProduction
 
 
