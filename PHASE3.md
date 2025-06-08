@@ -2,8 +2,12 @@
 
 ## 1. Continuous Integration & Testing
 - [ ] **1.1 Unit Testing with pytest**
-  - [ ] Test scripts for data processing, model training, and evaluation
-  - [ ] Documentation of the testing process and example test cases
+-For this section we focused on unit testing three aspects of our code, our dataset loading, our predicting capabilities, and training our model. Thus, the unit testing was tied to the files dataset.py, train.py, and predict.py with associated testing files being test_dataset.py, test_train.py, test_predict.py in line with the convention used in class for naming these files. Since calling the file to be loaded would be repeated process for these tests we made included the pytest.fixture decorator for this function so that the other functions could call the load function. The first test was done to make sure a fully populated two dimensional dataframe was loaded in, displaying the associated dimensions. Next we created tests around ensuring the dependent variable was in the list columns and to check if there were any missing values in the dataset. This is to ensure we have the target variable we are modelling and that we will catch issues related to building a model with NaN’s, and thus we can subsequently deal with that issue. Finally, since the classification response starts off as strings but gets converted to 1’s and 0’s, we check to make sure this conversion happened successfully so that a model can be built from the dependent variable. 
+-For test_predict.py we created pytest.fixture decorator function around loading the data, loading the hydra associated yaml file, and creating and fitting the model. From here we created tests checking if the outputs from the training process matched our expectations of what should come out of the training process. Thus, we tested if our prediction vector’s length matched that of our y_test vector. We also tested to ensure accuracy was being computed properly and thus if it fell within proper bounds of 0 to 1. We also checked the shape and total of the confusion matrix to ensure we had modelled a classification process with a 0,1 response variable properly. We also tested if our feature importance was behaving properly by properly sorting the features by importance, if the amount of coefficients matched the amount of features from this analysis, and that all coefficients were non-zero values. We also made tests around loading the pkl file to ensure that it had the proper hyperparameter value set, in our case max_iterations, and that the model was indeed a logistic regression.
+ -Finally, the file test_train.py pertained to unit testing the file train.py. The fixture functions are largely the same as test_predict.py. We performed some tests around preprocessing the data. We test if the training and test sizes are of the proper length. We also ensure the training and testing data hold the correct columns. We also check the variable type for the array that come out of scaling to ensure they are still arrays. To ensure we can properly train a model, we check if there are any NaN’s in the testing and training data for the independent and dependent variables. We also tested the conig values were correct and that the model predictions were of the proper length. We also ensured that the fitted model had coefficient terms and an intercept term, in line with our expectations for a logistic regression. 
+These were the tests we performed to ensure the dataset, training process, and prediction capabilities of our classification were functioning in line with how expect them to perform and enables our model to perform as intended. 
+
+
 - [ ] **1.2 GitHub Actions Workflows**
   - We have created actions in the github project and also added the workflow yaml files to the project directiory, which can be found in `./github/workflows`. There are a total of three actions and yaml files. We have the `ruff.yml` which contains the information for running ruff, `docker-image.yml` for docker, and `cml.yml` for model-training. As for the project actions, you where you can find `Ruff`, `model-training`, and `Docker Image Continuous integration`. We setup the `Ruff` workflow to run on each push.
   - **NOTE: It is expected that some of these checks will fail due to the fact we need a particular ordering in the code for it to work. However, we fixed any errors that were needed.**
@@ -102,10 +106,15 @@
       - https://datadome.co/bot-management-protection/what-is-api-rate-limiting/
       - https://medium.com/@bijit211987/everything-you-need-to-know-about-rate-limiting-for-apis-f236d2adcfff
 - [ ] **3.5 Interactive UI Deployment**
-  - [ ] Streamlit or Gradio app for model demonstration
-  - [ ] Deployment on Hugging Face platform
-  - [ ] Integration of UI deployment into GitHub Actions workflow
-  - [ ] Screenshots and usage examples
+-We created a streamlit app and deployed it to hugging face. This app is meant to enable the user to enter in their own information regarding the top 5 features and receive a response. The output is a 0 or 1 and maps to Benign or Malignant. The probability associated with the prediction is also provided. For all the other factor we set a toggle where those will be replace with either the mean or the median value of each feature. This was because our model was very large and did not want to make our interface too overwhelming with too many features. Thus, we only make the 5 most important features toggleable.  
+-In order to connect to git hub actions we had to make three secrets on our github action to link to our huggingface repository. These were:
+HF_TOKEN
+HF_USERNAME: aberkley123
+HF_SPACE_NAME: StreamlitProduction
+-Additinoally, we had to update our deploy.yaml to accommodate deploying on huggingface. We also needed to update our gitignore file as this was causing conflicts with our deploy.yaml file. Finally, due to conflict with huggingface we needed to update our requirements file to align with what huggingface was able to deploy. 
+![alt text](<docs/Github Actions Secrets.png>)
+![alt text](<docs/Streamlit displayed.gif>)
+
 
 ## 4. Documentation & Repository Updates
 - [ ] **4.1 Comprehensive README**

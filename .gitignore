@@ -184,3 +184,12 @@ cython_debug/
 
 #Ignore local secrets
 .dvc/secrets/service_account.json
+
+# Documentation and binary files that cause HF deployment issues
+docs/
+.docs/
+reports/
+*.png
+*.pdf
+experiments/
+
