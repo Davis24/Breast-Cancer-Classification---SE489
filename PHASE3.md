@@ -115,14 +115,6 @@ HF_SPACE_NAME: StreamlitProduction
 ![alt text](<docs/Github Actions Secrets.png>)
 ![alt text](<docs/Streamlit displayed.gif>)
 
+- Link to huggingface deployment: https://huggingface.co/spaces/aberkley123/StreamlitProduction
 
-## 4. Documentation & Repository Updates
-- [ ] **4.1 Comprehensive README**
-  - [ ] Setup, usage, and documentation for all CI/CD, CML, and deployment steps
-  - [ ] Screenshots and results of deployments
-- [ ] **4.2 Resource Cleanup Reminder**
-  - [ ] Checklist for removing GCP resources to avoid charges
 
----
-
-> **Checklist:** Use this as a guide for documenting your Phase 3 deliverables. Focus on automation, deployment, and clear, reproducible instructions for all steps.
