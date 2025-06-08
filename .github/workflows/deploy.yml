@@ -38,7 +38,7 @@ jobs:
         # Create a simple README for HF
         cat > clean-deploy/README.md << EOF
         ---
-        title: Streamlit2
+        title: StreamlitProduction
         emoji: 🏃
         colorFrom: red
         colorTo: red
